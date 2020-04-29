@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeworksTable extends Migration
+class CreateBidTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,27 +13,26 @@ class CreateHomeworksTable extends Migration
      */
     public function up()
     {
-        Schema::create('homeworks', function (Blueprint $table) {
+        Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subject_user_id');
-            $table->unsignedBigInteger('grade_id');
-            $table->string('name');
-            $table->string('lesson');
-            $table->enum('semester',['1','2']);
-            $table->string('day');
+            $table->string('company','50');
             $table->string('description');
-            $table->timestamp('deadline');
+            $table->string('position','100');
+            $table->string('salary','50');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('status_id');
+            $table->timestamp('publication_date')->nullable();
             $table->timestamps();
         });
-        Schema::table('homeworks', function (Blueprint $table) {
-            $table->foreign('subject_user_id')
+        Schema::table('bids', function (Blueprint $table) {
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('subject_user')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('grade_id')
+            $table->foreign('status_id')
                 ->references('id')
-                ->on('grades')
+                ->on('statuses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -46,6 +45,6 @@ class CreateHomeworksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homework');
+        Schema::dropIfExists('bid');
     }
 }

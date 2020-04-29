@@ -15,9 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('surname','50');
-            $table->string('patronymic','50');
+            $table->string('FIO');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -25,9 +23,16 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('birthday');
             $table->enum('sex',['Мужчина','Женщина']);
-            $table->enum('role',['Директор','Админ','Завуч','Учитель','Ученик']);
+            $table->unsignedBigInteger('role_id');
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
