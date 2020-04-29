@@ -1,8 +1,8 @@
 <template>
     <div class="footer pb-2 pt-2">
         <div class="container-fluid">
-            <span class="d-flex justify-content-center">© 2020 IT 2.0 Academy</span>
-            <span class="d-flex justify-content-center">Polokh Ivan Shsherbinin Maksim</span>
+            <span class="d-flex justify-content-center">© 2020 DGMA</span>
+            <span class="d-flex justify-content-center">Manager Agency</span>
         </div>
     </div>
 </template>
