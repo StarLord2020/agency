@@ -71,6 +71,7 @@ Vue.component('manager-index-bids', require('./components/manager/ManagerIndexBi
 Vue.component('index-resumes', require('./components/manager/IndexResumes.vue').default);
 Vue.component('employee-resume', require('./components/employee/EmployeeResume.vue').default);
 Vue.component('edit-bid', require('./components/employer/forms/EditBid').default);
+Vue.component('publish-refuse', require('./components/manager/blocks/PublishRefuse').default);
 const app = new Vue({
     el: '#app',
 });

@@ -41,6 +41,28 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
+                        <div class="col-sm-4">
+                            <label>Специальность</label>
+                        </div>
+                        <div class="form-group col-sm-8 m-0">
+                            <v-select
+                                v-model="bid.speciality"
+                                :options="specialities"
+                                :reduce="specialities => specialities.id"
+                                label="name"
+                            >
+                                <template v-slot:no-options="{ search, searching }">
+                                    <template v-if="searching">
+                                        Совпадений не найдено
+                                    </template>
+                                    <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                                </template>
+                            </v-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <label for="position" class="col-sm-4 control-label">Должность</label>
                         <div class="col-sm-8">
                             <input
@@ -102,7 +124,7 @@
 <script>
     export default {
         name: "CreateBid",
-        props:['id'],
+        props:['id','specialities'],
         data(){
             return {
                 bid:
@@ -110,7 +132,8 @@
                         address:'',
                         position:'',
                         salary:'',
-                        description:''
+                        description:'',
+                        speciality:''
                     },
             }
         },
@@ -125,8 +148,10 @@
                             'description':this.bid.description,
                             'salary':this.bid.salary,
                             'user_id':this.id,
+                            'specialty_id':this.bid.speciality,
                             'status_id':'1'
                         }
+
                         axios.post('/employer/bid',bid)
                             .then((response) => {
                                 if (response.data.result == 'ok') {
@@ -147,7 +172,7 @@
         }
         ,
         created() {
-
+            console.log(this.specialities);
         }
     }
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,9 @@ class HomeController extends Controller
             switch ($role[0]->name) {
                 case'Работодатель':
 
-                    return view('employer.index');
+                    $id=Auth::id();
+                    $myBids=(new Bid())->getUserBid($id);
+                    return view('employer.index',compact('myBids'));
                 case'Работник':
 
                     return view('employee.index');

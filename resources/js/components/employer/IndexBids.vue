@@ -2,7 +2,8 @@
     <div class="bides_container mx-auto">
         <div class="bid border pb-2" v-for="(bid,index) in MyBids">
             <a href="" class="d-block">
-                <span class="position d-block mb-2 mt-2"><b class="mr-3">Должгость:</b>{{bid.position}}</span>
+                <span class="status d-block mb-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
+                <span class="position d-block mb-2 mt-2"><b class="mr-3">Должyость:</b>{{bid.position}}</span>
                 <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid.salary}}</span>

@@ -41,7 +41,7 @@ Route::prefix('manager')
     ->group(function () {
         Route::view('/','manager.index');
         Route::get('/resumes','ResumeController@index');
-        Route::get('/bids','BidController@index');
+        Route::resource('/bids','BidController');
 //        Route::resource('resume', 'ResumeController');
     });
 

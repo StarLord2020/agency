@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bid;
+use App\Models\Role;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,8 +31,8 @@ class BidController extends Controller
     public function create()
     {
         $id=Auth::id();
-
-        return view('employer.create-bid',compact('id'));
+        $specialities=(new Specialty())->getSpecialty();
+        return view('employer.create-bid',compact('id','specialities'));
     }
 
     /**
@@ -64,7 +66,8 @@ class BidController extends Controller
      */
     public function edit(Bid $bid)
     {
-        return view('employer.edit',compact('bid'));
+        $specialities=(new Specialty())->getSpecialty();
+        return view('employer.edit',compact('bid','specialities'));
     }
 
     /**
@@ -80,7 +83,8 @@ class BidController extends Controller
             'description',
             'position',
             'address',
-            'salary',]);
+            'salary',
+            'specialty_id']);
 
         $bid->update($data);
 

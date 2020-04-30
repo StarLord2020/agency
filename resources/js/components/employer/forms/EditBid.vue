@@ -41,6 +41,28 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
+                        <div class="col-sm-4">
+                            <label>Специальность</label>
+                        </div>
+                        <div class="form-group col-sm-8 m-0">
+                            <v-select
+                                v-model="bid.specialty_id"
+                                :options="specialities"
+                                :reduce="specialities => specialities.id"
+                                label="name"
+                            >
+                                <template v-slot:no-options="{ search, searching }">
+                                    <template v-if="searching">
+                                        Совпадений не найдено
+                                    </template>
+                                    <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                                </template>
+                            </v-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <label for="position" class="col-sm-4 control-label">Должность</label>
                         <div class="col-sm-8">
                             <input
@@ -101,7 +123,7 @@
 <script>
     export default {
         name: "EditBid",
-        props:['bid'],
+        props:['bid','specialities'],
         methods:{
             EditBid(){
                 console.log(this.bid);
