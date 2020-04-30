@@ -111,11 +111,14 @@
                             .then((response) => {
                                 if (response.data.response === 'created') {
 
-                                    this.$toaster.success('Класс успешно добавлен');
-                                    // document.location.href = "/admin/super/grade"
+                                    this.$toaster.success('Резюме успешно создано');
+                                    document.location.href = "/employee/employee-resume";
+                                }
+                                else if (response.data.response === 'created'){
+
+                                    this.$toaster.success('Резюме уже существует');
                                 }
                                 else {
-
                                     this.$toaster.error('Ошибка');
                                 }
                             })

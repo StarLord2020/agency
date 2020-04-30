@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Employee\StoreRequest;
+use App\Models\Offer;
 use App\Models\Resume;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
@@ -23,8 +25,14 @@ class ResumeController extends Controller
 
     public function showResume() {
 
+        $user_id = Auth::id();
+        $resume = (new Resume())->getResumeById($user_id);
+        if($resume){
+            $offers = (new Offer())->getOffers($resume->id);
+        }
 
-        return view('employee.show-resume');
+
+        return view('employee.show-resume',compact('resume','offers'));
     }
 
     /**
@@ -45,15 +53,13 @@ class ResumeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $resume = $request->all();
         $resume['user_id']= Auth::id();
         $resume['status_id']= 1;
 
-        Resume::create($resume);
-
-        return ['response'=>'created'];
+        return (new Resume()) -> prepareForCreate($resume);
     }
 
     /**

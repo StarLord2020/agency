@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreRequest extends FormRequest
 {
@@ -23,8 +24,14 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $id = Auth::id();
+
+        $rules = [
+            'education' => 'required|max:255',
+            'specialty_id' => 'required|integer',
+            'experience' => 'required|string:255',
         ];
+
+        return $rules;
     }
 }
