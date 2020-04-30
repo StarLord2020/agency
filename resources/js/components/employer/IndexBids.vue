@@ -1,16 +1,16 @@
 <template>
     <div class="bides_container mx-auto">
-        <div class="bid border pb-2" v-for="bidt in 10">
+        <div class="bid border pb-2" v-for="(bid,index) in MyBids">
             <a href="" class="d-block">
-                <span class="position d-block mb-2 mt-2"><b class="mr-3">Должгость:</b>{{bid[0].position}}</span>
-                <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid[0].company}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid[0].address}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid[0].salary}}</span>
-                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid[0].description|cutText(195)}}</span>
-                <span class="status d-block mb-2"><b class="mr-3">Статус:</b>{{bid[0].status}}</span>
+                <span class="position d-block mb-2 mt-2"><b class="mr-3">Должгость:</b>{{bid.position}}</span>
+                <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>
+                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid.salary}}</span>
+                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
+                <span class="status d-block mb-2"><b class="mr-3">Статус:</b>{{bid.name}}</span>
             </a>
-            <a href="" class="edit btn btn-primary">Редактировать</a>
-            <button class="btn btn-danger">Удалить</button>
+            <a :href="'/employer/bid/'+bid.id+'/edit'" class="edit btn btn-primary">Редактировать</a>
+            <button @click="deleleteBid(bid.id,index)" class="btn btn-danger">Удалить</button>
         </div>
     </div>
 </template>
@@ -18,21 +18,39 @@
 <script>
     export default {
         name: "IndexBides",
+        props:['bids'],
         data() {
             return {
-                bid:[
-                    {
-                      position:'Продавец',
-                      company:'NKMZ',
-                      address:'Kramatorsk',
-                      salary:'100000',
-                      description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
-                          '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
-                          '    voluptatibus?',
-                      status:'na rasmotreniy'
-                    }
-                ]
+                MyBids:{}
             }
+        },
+        methods: {
+            deleleteBid(id, index) {
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
+                        if (value) {
+                            axios.delete('/employer/bid/' + id).then((response) => {
+                                if (response.data.response == 'deleted') {
+                                    this.MyBids.splice(index, 1)
+                                    this.$toaster.success("Запись успешно удалена");
+                                }
+                            }).catch(e => {
+                                this.$toaster.error("Пользователь не найден");
+                            });
+                        }
+                    })
+                    .catch(err => {
+                    })
+            },
         },
         filters: {
             cutText(value, symbolsCount) {
@@ -40,7 +58,11 @@
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
             }
-        }
+        },
+        created() {
+            this.MyBids=this.bids;
+            console.log(this.bids);
+        },
     }
 </script>
 
