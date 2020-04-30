@@ -19,8 +19,9 @@ class CreateResumesTable extends Migration
             $table->unsignedBigInteger('specialty_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');
-            $table->unsignedBigInteger('skills');
+            $table->string('skills');
             $table->string('experience');
+            $table->timestamp('publication_date')->nullable();
             $table->timestamps();
         });
         Schema::table('resumes', function (Blueprint $table) {

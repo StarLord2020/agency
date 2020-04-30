@@ -23,19 +23,23 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <label for="specialty" class="col-sm-4 control-label">Специальность</label>
-                        <div class="col-sm-8">
-                            <input
-                                v-validate="'required|alpha|min:4|max:20'"
-                                :class="{'input': true, 'alert-danger':errors.has('specialty')}"
-                                name="specialty"
-                                type="text"
-                                id="specialty"
-                                placeholder="Специальность"
-                                class="form-control"
-                                v-model = "resume.specialty"
+                        <div class="col-sm-4">
+                            <label>Специальность</label>
+                        </div>
+                        <div class="form-group col-sm-8 m-0">
+                            <v-select
+                                v-model="resume.specialty_id"
+                                :options="specialty"
+                                :reduce="specialty => specialty.id"
+                                label="name"
                             >
-                            <span v-show="errors.has('Специальность')" class="help is-danger">{{ errors.first('specialty') }}</span>
+                                <template v-slot:no-options="{ search, searching }">
+                                    <template v-if="searching">
+                                        Совпадений не найдено
+                                    </template>
+                                    <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                                </template>
+                            </v-select>
                         </div>
                     </div>
                 </div>
@@ -84,15 +88,20 @@
 <script>
     export default {
         name: "CreateResume",
+        props:['specialty'],
         data() {
             return {
                 resume: {
                     education:'',
-                    specialty:'',
+                    specialty_id:'',
                     experience:'',
                     skills:''
                 }
             }
+        },
+        created() {
+
+            console.log(this.specialty);
         },
         methods: {
             addResume() {
@@ -103,7 +112,7 @@
                                 if (response.data.response === 'created') {
 
                                     this.$toaster.success('Класс успешно добавлен');
-                                    document.location.href = "/admin/super/grade"
+                                    // document.location.href = "/admin/super/grade"
                                 }
                                 else {
 

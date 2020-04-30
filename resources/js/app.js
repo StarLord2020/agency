@@ -5,7 +5,10 @@ import VeeValidate from 'vee-validate';
 import { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
 import Toaster from 'v-toaster'
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
+Vue.component("v-select", vSelect);
 // You need a specific loader for CSS files like https://github.com/webpack/css-loader
 import 'v-toaster/dist/v-toaster.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'

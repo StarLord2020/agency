@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Resume;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,9 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        return view('employee.create-resume');
+        $specialty = (new Specialty())->getSpecialty();
+
+        return view('employee.create-resume',compact('specialty'));
     }
 
     /**
@@ -44,10 +47,13 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id']= Auth::id();
+        $resume = $request->all();
+        $resume['user_id']= Auth::id();
+        $resume['status_id']= 1;
 
-        return $request;
-        Resume::create($request->all());
+        Resume::create($resume);
+
+        return ['response'=>'created'];
     }
 
     /**
@@ -81,7 +87,7 @@ class ResumeController extends Controller
      */
     public function update(Request $request, Resume $resume)
     {
-        //
+
     }
 
     /**
