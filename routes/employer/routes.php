@@ -6,6 +6,7 @@ Route::prefix('employer')
 //            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','employer.index');
+
                 Route::resource('bid', 'BidController');
                 Route::get('/search-for-resumes','ResumeController@index');
 //                Route::resource('grade', 'GradeController');
