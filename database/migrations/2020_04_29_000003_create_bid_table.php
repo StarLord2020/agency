@@ -22,6 +22,7 @@ class CreateBidTable extends Migration
             $table->string('salary','50');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('specialty_id');
             $table->timestamp('publication_date')->nullable();
             $table->timestamps();
         });
@@ -34,6 +35,11 @@ class CreateBidTable extends Migration
             $table->foreign('status_id')
                 ->references('id')
                 ->on('statuses')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('specialty_id')
+                ->references('id')
+                ->on('specialties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

@@ -64,7 +64,7 @@ class BidController extends Controller
      */
     public function edit(Bid $bid)
     {
-        //
+        return view('employer.edit',compact('bid'));
     }
 
     /**
@@ -76,7 +76,15 @@ class BidController extends Controller
      */
     public function update(Request $request, Bid $bid)
     {
-        //
+        $data = $request->only(['company',
+            'description',
+            'position',
+            'address',
+            'salary',]);
+
+        $bid->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**
