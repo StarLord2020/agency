@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $role = (new Role()) -> getRole($user->role_id);
+        if($role[0]->name) {
+            switch ($role[0]->name) {
+                case'Работодатель':
+
+                    return view('employer.index');
+                case'Работник':
+
+                    return view('employee.index');
+                case'Менеджер':
+
+                    return view('manager.index');
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@
         }
 
         body {
-            padding-top: 83px;
+            padding-top: 94px;
             height: 100%;
         }
         html {
@@ -41,17 +41,18 @@
     </style>
 </head>
 <body>
-    <div id="app">
-        <employer-header></employer-header>
-        <div class="wrapper">
-            <main>
-                @yield('content')
-            </main>
-            <footer>
-                <footer-component></footer-component>
-            </footer>
-        </div>
+<div id="app">
+    <manager-header></manager-header>
+    <div class="wrapper">
+        <main>
+            @yield('content')
+        </main>
+        <footer>
+            <footer-component></footer-component>
+        </footer>
     </div>
+</div>
 <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>
+

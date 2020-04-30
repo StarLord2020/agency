@@ -15,8 +15,16 @@
             top: 0;
             background-color: #051d2c;
         }
+        .formContainer {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
         body {
-            padding-top: 70px;
+            padding-top: 97px;
+            height: 100%;
+        }
+        html {
             height: 100%;
         }
         .wrapper {
@@ -30,24 +38,21 @@
         footer {
             flex: 0 0 auto;
         }
-
     </style>
 </head>
 <body>
-    <header>
-        @include('student.layouts.blocks.nav.index')
-    </header>
-    <div id="app">
-        <div class="wrapper">
-            <main>
-                @yield('content')
-            </main>
-            <footer>
-                <footer-component></footer-component>
-            </footer>
-        </div>
+<div id="app">
+    <employee-header></employee-header>
+    <div class="wrapper">
+        <main>
+            @yield('content')
+        </main>
+        <footer>
+            <footer-component></footer-component>
+        </footer>
     </div>
-
-    <script src="{{mix('js/app.js')}}"></script>
+</div>
+<script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>
+

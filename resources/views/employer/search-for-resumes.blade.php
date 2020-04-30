@@ -1,7 +1,7 @@
 @extends('employer.layouts.employer')
 
-@section("content")
-    <index-bids></index-bids>
+@section('content')
+    <search-for-resumes></search-for-resumes>
 @endsection
 
 <style></style>

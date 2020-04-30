@@ -54,6 +54,7 @@ class RegisterController extends Controller
             'address'=>['required', 'string', 'max:255'],
             'role'=>['required'],
             'number'=>['required'],
+            'birthday'=>['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -71,6 +72,7 @@ class RegisterController extends Controller
             'FIO' => $data['name'],
             'email' => $data['email'],
             'role_id'=>$data['role'],
+            'birthday'=>$data['birthday'],
             'number'=>$data['number'],
             'address'=>$data['address'],
             'password' => Hash::make($data['password']),

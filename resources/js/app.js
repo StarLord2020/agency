@@ -45,7 +45,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('employer-header', require('./components/employer/blocks/header/EmployerHeader.vue').default);
 Vue.component('footer-component', require('./components/blocks/footer/FooterComponent.vue').default);
 Vue.component('create-bid', require('./components/employer/forms/CreateBid.vue').default);
-
+Vue.component('employee-header', require('./components/employee/blocks/EmployeeHeader.vue').default);
+Vue.component('create-resume', require('./components/employee/forms/CreateResume.vue').default);
+Vue.component('manager-header', require('./components/manager/blocks/ManagerHeader.vue').default);
+Vue.component('search-for-bid', require('./components/employee/SearchForBid.vue').default);
+Vue.component('index-bids', require('./components/employer/IndexBids.vue').default);
+Vue.component('search-for-resumes', require('./components/employer/SearchForResumes.vue').default);
+Vue.component('manager-index-bids', require('./components/manager/ManagerIndexBids.vue').default);
+Vue.component('index-resumes', require('./components/manager/IndexResumes.vue').default);
 
 const app = new Vue({
     el: '#app',

@@ -2,25 +2,93 @@
     <div class="container">
         <div class="form-container mx-auto mt-2">
             <form>
-                <span class="title">Создание вакансии</span>
+                <span class="title d-block mb-3">Вакансия</span>
                 <div class="form-group">
                     <div class="row">
-                        <label for="middleName" class="col-sm-4 control-label">Имя</label>
+                        <label for="company" class="col-sm-4 control-label">Предприятие</label>
                         <div class="col-sm-8">
                             <input
                                 v-validate="'required|alpha|min:4|max:20'"
-                                :class="{'input': true, 'alert-danger':errors.has('name')}"
-                                name="name"
+                                :class="{'input': true, 'alert-danger':errors.has('company')}"
+                                name="company"
                                 type="text"
-                                id="middleName"
-                                placeholder="Имя"
+                                id="company"
+                                placeholder="Предприятие"
                                 class="form-control"
-
                             >
-                            <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                            <span v-show="errors.has('company')" class="help is-danger">{{ errors.first('company') }}</span>
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label for="address" class="col-sm-4 control-label">Адресс</label>
+                        <div class="col-sm-8">
+                            <input
+                                v-validate="'required|alpha|min:4|max:20'"
+                                :class="{'input': true, 'alert-danger':errors.has('address')}"
+                                name="address"
+                                type="text"
+                                id="address"
+                                placeholder="Адресс"
+                                class="form-control"
+                            >
+                            <span v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label for="position" class="col-sm-4 control-label">Должность</label>
+                        <div class="col-sm-8">
+                            <input
+                                v-validate="'required|alpha|min:4|max:20'"
+                                :class="{'input': true, 'alert-danger':errors.has('position')}"
+                                name="position"
+                                type="text"
+                                id="position"
+                                placeholder="Должность"
+                                class="form-control"
+                            >
+                            <span v-show="errors.has('position')" class="help is-danger">{{ errors.first('position') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label for="salary" class="col-sm-4 control-label">Заработная плата</label>
+                        <div class="col-sm-8">
+                            <input
+                                v-validate="'required|alpha|min:4|max:20'"
+                                :class="{'input': true, 'alert-danger':errors.has('salary')}"
+                                name="salary"
+                                type="text"
+                                id="salary"
+                                placeholder="Заработная плата"
+                                class="form-control"
+                            >
+                            <span v-show="errors.has('salary')" class="help is-danger">{{ errors.first('salary') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-4 control-label" for="description">Описание</label>
+                        <div class="col-md-8">
+                            <textarea
+                                v-validate="'required|max:255'"
+                                :class="{'input': true, 'alert-danger':errors.has('description')}"
+                                name="description"
+                                class="form-control"
+                                id="description"
+                                placeholder="Описание"
+                            >
+                            </textarea>
+                            <span v-show="errors.has('description')" class="help is-danger">{{ errors.first('description') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Создать</button>
             </form>
         </div>
     </div>
@@ -34,12 +102,22 @@
 
 <style scoped>
     .form-container {
-        max-width: 500px;
+        max-width: 825px;
         padding: 25px;
         border: 1px gray solid;
         border-radius:7px;
     }
     .title {
         font-size: 30px;
+    }
+    textarea {
+        height: 194px!important;
+        resize: none!important;
+    }
+    label {
+        font-size: 16px;
+    }
+    form {
+        margin:0;
     }
 </style>

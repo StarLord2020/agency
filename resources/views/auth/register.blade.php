@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Регистрация') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -56,8 +56,14 @@
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Роль') }}</label>
                             <div class="col-md-6">
-                                <select name="role" id="role" сlass="form-control @error('role') is-invalid @enderror" name="role" required autocomplete="role">
-                                    <option value="1">Работодатель</option>
+                                <select
+                                    required
+                                    autocomplete="role"
+                                    name="role"
+                                    id="inputState"
+                                    class="form-control @error('role') is-invalid @enderror"
+                                >
+                                    <option selected value="1">Работодатель</option>
                                     <option value="2">Работник</option>
                                 </select>
                                 @error('role')
@@ -67,7 +73,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Дата рождения') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="birthday" type="date" class="form-control @error('number') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday">
+
+                                @error('birthday')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Номер телефона') }}</label>
 
@@ -97,7 +115,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Подтверждение пароля') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -107,7 +125,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Зарегистрироватся') }}
                                 </button>
                             </div>
                         </div>

@@ -1,5 +1,28 @@
 <template>
     <div class="bides_container mx-auto">
+        <div class="search pt-4 pb-4 border">
+            <div class="row">
+                <div class="col-4">
+                    <input
+                    name="position"
+                    type="text"
+                    placeholder="Должность..."
+                    class="form-control"
+                    >
+                </div>
+                <div class="col-4">
+                    <input
+                        name="address"
+                        type="text"
+                        placeholder="Город..."
+                        class="form-control"
+                    >
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary">Найти</button>
+                </div>
+            </div>
+        </div>
         <div class="bid border pb-2" v-for="bidt in 10">
             <a href="" class="d-block">
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Должгость:</b>{{bid[0].position}}</span>
@@ -7,29 +30,26 @@
                 <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid[0].address}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid[0].salary}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid[0].description|cutText(195)}}</span>
-                <span class="status d-block mb-2"><b class="mr-3">Статус:</b>{{bid[0].status}}</span>
             </a>
-            <a href="" class="edit btn btn-primary">Редактировать</a>
-            <button class="btn btn-danger">Удалить</button>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "IndexBides",
+        name: "SearchForBid",
         data() {
             return {
                 bid:[
                     {
-                      position:'Продавец',
-                      company:'NKMZ',
-                      address:'Kramatorsk',
-                      salary:'100000',
-                      description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
-                          '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
-                          '    voluptatibus?',
-                      status:'na rasmotreniy'
+                        position:'Продавец',
+                        company:'NKMZ',
+                        address:'Kramatorsk',
+                        salary:'100000',
+                        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
+                            '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
+                            '    voluptatibus?',
+                        status:'na rasmotreniy'
                     }
                 ]
             }
@@ -62,5 +82,9 @@
     }
     .edit {
         color:#fff;
+    }
+    .search {
+        padding-left:15px;
+        padding-right:15px;
     }
 </style>

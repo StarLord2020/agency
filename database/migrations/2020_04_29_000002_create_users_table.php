@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('FIO');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('birthday')->nullable();
             $table->string('password');
             $table->string('number',20);
             $table->string('address');

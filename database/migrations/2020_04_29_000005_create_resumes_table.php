@@ -16,6 +16,7 @@ class CreateResumesTable extends Migration
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->string('education');
+            $table->unsignedBigInteger('specialty_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('skills');
@@ -31,6 +32,11 @@ class CreateResumesTable extends Migration
             $table->foreign('status_id')
                 ->references('id')
                 ->on('statuses')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('specialty_id')
+                ->references('id')
+                ->on('specialties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

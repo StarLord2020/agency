@@ -1,12 +1,10 @@
 <template>
-        <h1>jjgjgjdgjdjgdjldgjldjdgjljjldjl</h1>
-
-
+    
 </template>
 
 <script>
     export default {
-        name: "EmployerFooter"
+        name: "IndexOffers"
     }
 </script>
 

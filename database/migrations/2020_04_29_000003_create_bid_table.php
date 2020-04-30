@@ -18,6 +18,7 @@ class CreateBidTable extends Migration
             $table->string('company','50');
             $table->string('description');
             $table->string('position','100');
+            $table->string('address');
             $table->string('salary','50');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');

@@ -7,6 +7,7 @@ Route::prefix('employer')
             ->group(function () {
                 Route::view('/','employer.index');
                 Route::resource('bid', 'BidController');
+                Route::get('/search-for-resumes','ResumeController@index');
 //                Route::resource('grade', 'GradeController');
 //                Route::resource('subject', 'SubjectController');
 //                Route::resource('user', 'UserController');
@@ -21,3 +22,23 @@ Route::prefix('employer')
 //                Route::get("subject-user/create/{id}/{name} ",'SubjectUserController@createForm');
 //                Route::get("student/create/{id}/{name} ",'StudentController@createForm');
             });
+
+Route::prefix('employee')
+    ->name('employee.')
+    ->namespace('Employee')
+    ->group(function () {
+        Route::view('/','employee.index');
+        Route::resource('resume', 'ResumeController');
+        Route::get('/search-for-bid','BidController@index');
+    });
+
+Route::prefix('manager')
+    ->name('manager.')
+    ->namespace('Manager')
+    ->group(function () {
+        Route::view('/','manager.index');
+        Route::get('/resumes','ResumeController@index');
+        Route::get('/bids','BidController@index');
+//        Route::resource('resume', 'ResumeController');
+    });
+

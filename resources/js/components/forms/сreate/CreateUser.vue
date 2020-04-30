@@ -241,8 +241,6 @@
             <!--<input type="file" name="image" v-model="user.file">-->
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
-
-
     </div>
     </div>
 </template>
