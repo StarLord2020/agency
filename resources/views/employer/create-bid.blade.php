@@ -1,7 +1,7 @@
 @extends('employer.layouts.employer')
 
 @section('content')
-    <create-bid></create-bid>
+    <create-bid :id="{{json_encode($id)}}" ></create-bid>
 @endsection
 
 <style></style>

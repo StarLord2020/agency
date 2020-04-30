@@ -1,13 +1,14 @@
 <template>
     <div class="container">
         <div class="form-container mx-auto mt-2">
-            <form>
+            <form @submit.prevent="createBid">
                 <span class="title d-block mb-3">Вакансия</span>
                 <div class="form-group">
                     <div class="row">
                         <label for="company" class="col-sm-4 control-label">Предприятие</label>
                         <div class="col-sm-8">
                             <input
+                                v-model="bid.company"
                                 v-validate="'required|alpha|min:4|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('company')}"
                                 name="company"
@@ -25,6 +26,7 @@
                         <label for="address" class="col-sm-4 control-label">Адресс</label>
                         <div class="col-sm-8">
                             <input
+                                v-model="bid.address"
                                 v-validate="'required|alpha|min:4|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('address')}"
                                 name="address"
@@ -42,6 +44,7 @@
                         <label for="position" class="col-sm-4 control-label">Должность</label>
                         <div class="col-sm-8">
                             <input
+                                v-model="bid.position"
                                 v-validate="'required|alpha|min:4|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('position')}"
                                 name="position"
@@ -59,7 +62,8 @@
                         <label for="salary" class="col-sm-4 control-label">Заработная плата</label>
                         <div class="col-sm-8">
                             <input
-                                v-validate="'required|alpha|min:4|max:20'"
+                                v-model="bid.salary"
+                                v-validate="'required|min:4|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('salary')}"
                                 name="salary"
                                 type="text"
@@ -76,6 +80,7 @@
                         <label class="col-md-4 control-label" for="description">Описание</label>
                         <div class="col-md-8">
                             <textarea
+                                v-model="bid.description"
                                 v-validate="'required|max:255'"
                                 :class="{'input': true, 'alert-danger':errors.has('description')}"
                                 name="description"
@@ -96,7 +101,54 @@
 
 <script>
     export default {
-        name: "CreateBid"
+        name: "CreateBid",
+        props:['id'],
+        data(){
+            return {
+                bid:
+                    {   company:'',
+                        address:'',
+                        position:'',
+                        salary:'',
+                        description:''
+                    },
+            }
+        },
+        methods:{
+            createBid() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        let bid={
+                            'company':this.bid.company,
+                            'address':this.bid.address,
+                            'position':this.bid.position,
+                            'description':this.bid.description,
+                            'salary':this.bid.salary,
+                            'user_id':this.id,
+                            'status_id':'1'
+                        }
+                        axios.post('/employer/bid',bid)
+                            .then((response) => {
+                                if (response.data.result == 'ok') {
+                                    this.$toaster.success('Запись успешно добавлена');
+                                    // document.location.href = "/admin/super/student/index/"+this.grade.id+'/'+this.grade.name;
+                                }
+                            })
+                            .catch(e => {
+                                console.log(e);
+                                this.$toaster.error(e.response.data.message);
+                            })
+                    }
+                    else {
+                        this.$toaster.warning("Заполните все поля!");
+                    }
+                })
+            }
+        }
+        ,
+        created() {
+
+        }
     }
 </script>
 

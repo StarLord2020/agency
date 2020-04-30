@@ -2445,8 +2445,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CreateBid"
+  name: "CreateBid",
+  props: ['id'],
+  data: function data() {
+    return {
+      bid: {
+        company: '',
+        address: '',
+        position: '',
+        salary: '',
+        description: ''
+      }
+    };
+  },
+  methods: {
+    createBid: function createBid() {
+      var _this = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          var bid = {
+            'company': _this.bid.company,
+            'address': _this.bid.address,
+            'position': _this.bid.position,
+            'description': _this.bid.description,
+            'salary': _this.bid.salary,
+            'user_id': _this.id,
+            'status_id': '1'
+          };
+          axios.post('/employer/bid', bid).then(function (response) {
+            if (response.data.result == 'ok') {
+              _this.$toaster.success('Запись успешно добавлена'); // document.location.href = "/admin/super/student/index/"+this.grade.id+'/'+this.grade.name;
+
+            }
+          })["catch"](function (e) {
+            console.log(e);
+
+            _this.$toaster.error(e.response.data.message);
+          });
+        } else {
+          _this.$toaster.warning("Заполните все поля!");
+        }
+      });
+    }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -51060,282 +51109,370 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "form-container mx-auto mt-2" }, [
-      _c("form", [
-        _c("span", { staticClass: "title d-block mb-3" }, [_vm._v("Вакансия")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "company" }
-              },
-              [_vm._v("Предприятие")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("company")
-                },
-                attrs: {
-                  name: "company",
-                  type: "text",
-                  id: "company",
-                  placeholder: "Предприятие"
-                }
-              }),
-              _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.createBid($event)
+            }
+          }
+        },
+        [
+          _c("span", { staticClass: "title d-block mb-3" }, [
+            _vm._v("Вакансия")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "company" }
+                },
+                [_vm._v("Предприятие")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("company"),
-                      expression: "errors.has('company')"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bid.company,
+                      expression: "bid.company"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("company")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "address" }
-              },
-              [_vm._v("Адресс")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("company")
+                  },
+                  attrs: {
+                    name: "company",
+                    type: "text",
+                    id: "company",
+                    placeholder: "Предприятие"
+                  },
+                  domProps: { value: _vm.bid.company },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.bid, "company", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("address")
-                },
-                attrs: {
-                  name: "address",
-                  type: "text",
-                  id: "address",
-                  placeholder: "Адресс"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("company"),
+                        expression: "errors.has('company')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("company")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "address" }
+                },
+                [_vm._v("Адресс")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("address"),
-                      expression: "errors.has('address')"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bid.address,
+                      expression: "bid.address"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("address")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "position" }
-              },
-              [_vm._v("Должность")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("address")
+                  },
+                  attrs: {
+                    name: "address",
+                    type: "text",
+                    id: "address",
+                    placeholder: "Адресс"
+                  },
+                  domProps: { value: _vm.bid.address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.bid, "address", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("position")
-                },
-                attrs: {
-                  name: "position",
-                  type: "text",
-                  id: "position",
-                  placeholder: "Должность"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("address"),
+                        expression: "errors.has('address')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("address")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "position" }
+                },
+                [_vm._v("Должность")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("position"),
-                      expression: "errors.has('position')"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bid.position,
+                      expression: "bid.position"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("position")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "salary" }
-              },
-              [_vm._v("Заработная плата")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("position")
+                  },
+                  attrs: {
+                    name: "position",
+                    type: "text",
+                    id: "position",
+                    placeholder: "Должность"
+                  },
+                  domProps: { value: _vm.bid.position },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.bid, "position", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("salary")
-                },
-                attrs: {
-                  name: "salary",
-                  type: "text",
-                  id: "salary",
-                  placeholder: "Заработная плата"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("position"),
+                        expression: "errors.has('position')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("position")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "salary" }
+                },
+                [_vm._v("Заработная плата")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("salary"),
-                      expression: "errors.has('salary')"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bid.salary,
+                      expression: "bid.salary"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|min:4|max:20",
+                      expression: "'required|min:4|max:20'"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("salary")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 control-label",
-                attrs: { for: "description" }
-              },
-              [_vm._v("Описание")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|max:255",
-                    expression: "'required|max:255'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("salary")
+                  },
+                  attrs: {
+                    name: "salary",
+                    type: "text",
+                    id: "salary",
+                    placeholder: "Заработная плата"
+                  },
+                  domProps: { value: _vm.bid.salary },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.bid, "salary", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("description")
-                },
-                attrs: {
-                  name: "description",
-                  id: "description",
-                  placeholder: "Описание"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("salary"),
+                        expression: "errors.has('salary')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("salary")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-md-4 control-label",
+                  attrs: { for: "description" }
+                },
+                [_vm._v("Описание")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-8" }, [
+                _c("textarea", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("description"),
-                      expression: "errors.has('description')"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bid.description,
+                      expression: "bid.description"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|max:255",
+                      expression: "'required|max:255'"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("description")))]
-              )
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("description")
+                  },
+                  attrs: {
+                    name: "description",
+                    id: "description",
+                    placeholder: "Описание"
+                  },
+                  domProps: { value: _vm.bid.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.bid, "description", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("description"),
+                        expression: "errors.has('description')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("description")))]
+                )
+              ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-block mt-4",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Создать")]
-        )
-      ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block mt-4",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Создать")]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -64275,15 +64412,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/components/employer/IndexBids.vue ***!
   \********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _IndexBids_vue_vue_type_template_id_479cb81f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexBids.vue?vue&type=template&id=479cb81f&scoped=true& */ "./resources/js/components/employer/IndexBids.vue?vue&type=template&id=479cb81f&scoped=true&");
 /* harmony import */ var _IndexBids_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexBids.vue?vue&type=script&lang=js& */ "./resources/js/components/employer/IndexBids.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _IndexBids_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _IndexBids_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _IndexBids_vue_vue_type_style_index_0_id_479cb81f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IndexBids.vue?vue&type=style&index=0&id=479cb81f&scoped=true&lang=css& */ "./resources/js/components/employer/IndexBids.vue?vue&type=style&index=0&id=479cb81f&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _IndexBids_vue_vue_type_style_index_0_id_479cb81f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IndexBids.vue?vue&type=style&index=0&id=479cb81f&scoped=true&lang=css& */ "./resources/js/components/employer/IndexBids.vue?vue&type=style&index=0&id=479cb81f&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -64315,7 +64451,7 @@ component.options.__file = "resources/js/components/employer/IndexBids.vue"
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/employer/IndexBids.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64899,8 +65035,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\openServer\OSPanel\domains\diplom\project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\openServer\OSPanel\domains\diplom\project\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\maksi\Desktop\OSPanel\domains\agency\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\maksi\Desktop\OSPanel\domains\agency\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

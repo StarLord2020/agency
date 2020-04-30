@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Models\Bid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
 {
@@ -25,7 +26,9 @@ class BidController extends Controller
      */
     public function create()
     {
-        return view('employer.create-bid');
+        $id=Auth::id();
+
+        return view('employer.create-bid',compact('id'));
     }
 
     /**
@@ -36,7 +39,8 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Bid::create($request->all());
+        return ['result'=>'ok'];
     }
 
     /**
