@@ -16,7 +16,9 @@ class BidController extends Controller
      */
     public function index()
     {
-        return view('employer.index');
+        $id=Auth::id();
+        $myBids=(new Bid())->getUserBid($id);
+        return view('employer.index',compact('myBids'));
     }
 
     /**
@@ -85,6 +87,8 @@ class BidController extends Controller
      */
     public function destroy(Bid $bid)
     {
-        //
+        $bid->delete();
+
+        return ['response'=>'deleted'];
     }
 }

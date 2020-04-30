@@ -4,7 +4,20 @@ window.Vue = require('vue');
 import VeeValidate from 'vee-validate';
 import { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
+import Toaster from 'v-toaster'
 
+// You need a specific loader for CSS files like https://github.com/webpack/css-loader
+import 'v-toaster/dist/v-toaster.css'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+// optional set default imeout, the default is 10000 (10 seconds).
+Vue.use(Toaster, {timeout: 5000})
 Vue.use(VeeValidate, {
     fieldsBagName: 'veeFields',
     locale: 'ru',

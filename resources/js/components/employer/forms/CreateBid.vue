@@ -131,7 +131,7 @@
                             .then((response) => {
                                 if (response.data.result == 'ok') {
                                     this.$toaster.success('Запись успешно добавлена');
-                                    // document.location.href = "/admin/super/student/index/"+this.grade.id+'/'+this.grade.name;
+                                    document.location.href = "/employer/bid";
                                 }
                             })
                             .catch(e => {
