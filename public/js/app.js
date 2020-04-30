@@ -1994,6 +1994,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EmployeResume",
   data: function data() {
@@ -50464,7 +50466,13 @@ var render = function() {
             _c("b", { staticClass: "mr-3" }, [_vm._v("Навыки:")]),
             _vm._v(_vm._s(_vm._f("cutText")(_vm.bid[0].scills, 195)))
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c("a", { staticClass: "edit btn btn-primary", attrs: { href: "" } }, [
+          _vm._v("Редактировать")
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Удалить")])
       ]),
       _vm._v(" "),
       _vm._m(1),

@@ -11,6 +11,8 @@
                 <span class="salary d-block mb-2"><b class="mr-3">Опыт работы:</b>{{bid[0].expiriens}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{bid[0].scills|cutText(195)}}</span>
             </a>
+            <a href="" class="edit btn btn-primary">Редактировать</a>
+            <button class="btn btn-danger">Удалить</button>
         </div>
         <div class="search pt-4 pb-4 border">
             <div>Вашы предложения</div>
