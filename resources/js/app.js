@@ -53,6 +53,8 @@ Vue.component('index-bids', require('./components/employer/IndexBids.vue').defau
 Vue.component('search-for-resumes', require('./components/employer/SearchForResumes.vue').default);
 Vue.component('manager-index-bids', require('./components/manager/ManagerIndexBids.vue').default);
 Vue.component('index-resumes', require('./components/manager/IndexResumes.vue').default);
+Vue.component('employee-resume', require('./components/employee/EmployeeResume.vue').default);
+
 
 const app = new Vue({
     el: '#app',
