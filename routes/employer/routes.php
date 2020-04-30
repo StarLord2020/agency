@@ -31,7 +31,7 @@ Route::prefix('employee')
     ->group(function () {
         Route::view('/','employee.index');
         Route::resource('resume', 'ResumeController');
-        Route::get('/employee-resume/{id}','ResumeController@showResume');
+        Route::get('/employee-resume','ResumeController@showResume');
         Route::get('/search-for-bid','BidController@index');
     });
 
