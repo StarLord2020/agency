@@ -18,6 +18,13 @@ class ResumeController extends Controller
 
     }
 
+
+    public function showResume($id) {
+
+
+        return view('employee.show-resume');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

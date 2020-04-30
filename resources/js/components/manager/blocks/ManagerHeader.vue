@@ -9,9 +9,6 @@
                 </div>
                 <div class="col-8">
                     <div class="d-flex justify-content-end">
-                        <button class="navbar-toggler navbar-dark mt-2" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                             <ul class="navbar-nav d-flex justify-content-end w-100 mt-2">
                                 <li class="nav-item mr-5">
@@ -22,6 +19,10 @@
                                 </li>
                             </ul>
                         </div>
+                        <button class="navbar-toggler navbar-dark mt-2" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="logout mt-3" @click="logout()">Выйти</div>
                     </div>
                 </div>
             </div>
@@ -31,7 +32,15 @@
 
 <script>
     export default {
-        name: "ManagerHeader"
+        name: "ManagerHeader",
+        methods:{
+            logout(){
+                axios.post('/logout')
+                    .then((response)=>{
+
+                    })
+            }
+        }
     }
 </script>
 
