@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="form-container mx-auto mt-2">
-            <form>
+            <form @submit.prevent="addResume">
                 <span class="title d-block mb-3">Резюме</span>
                 <div class="form-group">
                     <div class="row">
@@ -15,6 +15,7 @@
                                 id="education"
                                 placeholder="Образование"
                                 class="form-control"
+                                v-model = "resume.education"
                             >
                             <span v-show="errors.has('education')" class="help is-danger">{{errors.first('education')}}</span>
                         </div>
@@ -32,6 +33,7 @@
                                 id="specialty"
                                 placeholder="Специальность"
                                 class="form-control"
+                                v-model = "resume.specialty"
                             >
                             <span v-show="errors.has('Специальность')" class="help is-danger">{{ errors.first('specialty') }}</span>
                         </div>
@@ -39,18 +41,19 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <label for="expirience" class="col-sm-4 control-label">Стаж</label>
+                        <label for="experience" class="col-sm-4 control-label">Стаж</label>
                         <div class="col-sm-8">
                             <input
                                 v-validate="'required|alpha|min:4|max:20'"
-                                :class="{'input': true, 'alert-danger':errors.has('expirience')}"
-                                name="expirience"
+                                :class="{'input': true, 'alert-danger':errors.has('experience')}"
+                                name="experience"
                                 type="text"
-                                id="expirience"
+                                id="experience"
                                 placeholder="Стаж"
                                 class="form-control"
+                                v-model="resume.experience"
                             >
-                            <span v-show="errors.has('expirience')" class="help is-danger">{{ errors.first('expirience') }}</span>
+                            <span v-show="errors.has('experience')" class="help is-danger">{{ errors.first('experience')}}</span>
                         </div>
                     </div>
                 </div>
@@ -65,6 +68,7 @@
                                 class="form-control"
                                 id="skills"
                                 placeholder="Навыки"
+                                v-model="resume.skills"
                             >
                             </textarea>
                             <span v-show="errors.has('skills')" class="help is-danger">{{ errors.first('skills') }}</span>
@@ -79,7 +83,44 @@
 
 <script>
     export default {
-        name: "CreateResume"
+        name: "CreateResume",
+        data() {
+            return {
+                resume: {
+                    education:'',
+                    specialty:'',
+                    experience:'',
+                    skills:''
+                }
+            }
+        },
+        methods: {
+            addResume() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        axios.post('/employee/resume', this.resume)
+                            .then((response) => {
+                                if (response.data.response === 'created') {
+
+                                    this.$toaster.success('Класс успешно добавлен');
+                                    document.location.href = "/admin/super/grade"
+                                }
+                                else {
+
+                                    this.$toaster.error('Ошибка');
+                                }
+                            })
+                            .catch(e => {
+                                this.$toaster.error(e.response.data.message);
+                            })
+                    }
+                    else {
+
+                        this.$toaster.warning("Заполните все поля!");
+                    }
+                })
+            }
+        }
     }
 </script>
 

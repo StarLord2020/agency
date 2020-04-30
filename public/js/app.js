@@ -1996,17 +1996,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "EmployeResume",
+  name: "EmployeeResume",
   data: function data() {
     return {
-      bid: [{
-        fio: 'Petrov Aleks Semonovich',
-        education: 'NKMZ',
-        address: 'Kramatorsk',
-        expiriens: 'dd($this->skills)',
-        scills: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' + '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' + '    voluptatibus?'
-      }]
+      resume: [// {
+        //     fio:'Petrov Aleks Semonovich',
+        //     education:'NKMZ',
+        //     address:'Kramatorsk',
+        //     expiriens:'dd($this->skills)',
+        //     scills:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
+        //         '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
+        //         '    voluptatibus?'
+        // }
+      ],
+      bid: [// {
+        //     fio:'Petrov Aleks Semonovich',
+        //     address:'Kramatorsk',
+        //     contacts:'dd($this->skills)',
+        //     description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
+        //         '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
+        //         '    voluptatibus?'
+        // }
+      ]
     };
   },
   filters: {
@@ -2230,8 +2247,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CreateResume"
+  name: "CreateResume",
+  data: function data() {
+    return {
+      resume: {
+        education: '',
+        specialty: '',
+        experience: '',
+        skills: ''
+      }
+    };
+  },
+  methods: {
+    addResume: function addResume() {
+      var _this = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          axios.post('/employee/resume', _this.resume).then(function (response) {
+            if (response.data.response === 'created') {
+              _this.$toaster.success('Класс успешно добавлен');
+
+              document.location.href = "/admin/super/grade";
+            } else {
+              _this.$toaster.error('Ошибка');
+            }
+          })["catch"](function (e) {
+            _this.$toaster.error(e.response.data.message);
+          });
+        } else {
+          _this.$toaster.warning("Заполните все поля!");
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -7229,7 +7283,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.bides_container[data-v-28876fa1] {\n    max-width:700px;\n    /*border: 1px solid gray;*/\n    border-radius: 3px;\n}\n.resume[data-v-28876fa1],offers[data-v-28876fa1] {\n    padding: 0 15px;\n}\n.resume[data-v-28876fa1]:hover {\n    border: 1px solid gray!important;\n}\n.offers[data-v-28876fa1]:hover {\n    border: 1px solid gray!important;\n}\na[data-v-28876fa1] {\n    text-decoration:none;\n    color:black;\n}\n.edit[data-v-28876fa1] {\n    color:#fff;\n}\n.search[data-v-28876fa1] {\n    padding-left:15px;\n    padding-right:15px;\n}\n", ""]);
+exports.push([module.i, "\n.bides_container[data-v-28876fa1] {\n    max-width:730px;\n    border-radius: 3px;\n    padding-left:15px;\n    padding-right:15px;\n}\n.resume[data-v-28876fa1],.offers[data-v-28876fa1] {\n    padding: 0 15px;\n}\n.resume[data-v-28876fa1]:hover {\n    border: 1px solid gray!important;\n}\n.offers[data-v-28876fa1]:hover {\n    border: 1px solid gray!important;\n}\na[data-v-28876fa1] {\n    text-decoration:none;\n    color:black;\n}\n.edit[data-v-28876fa1] {\n    color:#fff;\n}\n.search[data-v-28876fa1] {\n    padding-left:15px;\n    padding-right:15px;\n}\n", ""]);
 
 // exports
 
@@ -7267,7 +7321,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\na[data-v-0ecc018e] {\n    color: #fff;\n    font-size: 17px;\n}\na[data-v-0ecc018e]:hover {\n    color: #fff;\n}\n.dropdown-menu[data-v-0ecc018e] {\n    left: -35px;\n}\n.active[data-v-0ecc018e]\n{\n    color: goldenrod!important;\n}\n.logo[data-v-0ecc018e] {\n    max-width: 200px;\n}\n", ""]);
+exports.push([module.i, "\na[data-v-0ecc018e] {\n    color: #fff;\n    font-size: 17px;\n}\na[data-v-0ecc018e]:hover {\n    color: #fff;\n}\n.dropdown-menu[data-v-0ecc018e] {\n    left: -35px;\n}\n.active[data-v-0ecc018e]\n{\n    color: goldenrod!important;\n}\n.logo[data-v-0ecc018e] {\n    max-width: 200px;\n}\n.logout[data-v-0ecc018e] {\n    color:#fff;\n    font-size: 17px;\n    cursor:pointer;\n}\n", ""]);
 
 // exports
 
@@ -7419,7 +7473,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\na[data-v-4dd8d11e] {\n    color: #fff;\n    font-size: 17px;\n}\na[data-v-4dd8d11e]:hover {\n    color: #fff;\n}\n.dropdown-menu[data-v-4dd8d11e] {\n    left: -35px;\n}\n.active[data-v-4dd8d11e]\n{\n    color: goldenrod!important;\n}\n.logo[data-v-4dd8d11e] {\n    max-width: 200px;\n}\n", ""]);
+exports.push([module.i, "\na[data-v-4dd8d11e] {\n    color: #fff;\n    font-size: 17px;\n}\na[data-v-4dd8d11e]:hover {\n    color: #fff;\n}\n.dropdown-menu[data-v-4dd8d11e] {\n    left: -35px;\n}\n.active[data-v-4dd8d11e]\n{\n    color: goldenrod!important;\n}\n.logo[data-v-4dd8d11e] {\n    max-width: 200px;\n}\n.logout[data-v-4dd8d11e] {\n    color:#fff;\n    font-size: 17px;\n    cursor:pointer;\n}\n", ""]);
 
 // exports
 
@@ -50440,54 +50494,59 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "resume border pb-2" }, [
-        _c("a", { staticClass: "d-block", attrs: { href: "" } }, [
-          _c("span", { staticClass: "d-block mb-2 mt-2" }, [
-            _c("b", { staticClass: "mr-3" }, [_vm._v("ФИО:")]),
-            _vm._v(_vm._s(_vm.bid[0].fio))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "company d-block mb-2" }, [
-            _c("b", { staticClass: "mr-3" }, [_vm._v("Образование:")]),
-            _vm._v(" " + _vm._s(_vm.bid[0].education))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "address d-block mb-2" }, [
-            _c("b", { staticClass: "mr-3" }, [_vm._v("Адресс:")]),
-            _vm._v(_vm._s(_vm.bid[0].address))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "salary d-block mb-2" }, [
-            _c("b", { staticClass: "mr-3" }, [_vm._v("Опыт работы:")]),
-            _vm._v(_vm._s(_vm.bid[0].expiriens))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "description d-block mb-2" }, [
-            _c("b", { staticClass: "mr-3" }, [_vm._v("Навыки:")]),
-            _vm._v(_vm._s(_vm._f("cutText")(_vm.bid[0].scills, 195)))
+      _vm.resume.length
+        ? _c("div", { staticClass: "resume border pb-2" }, [
+            _c("a", { staticClass: "d-block", attrs: { href: "" } }, [
+              _c("span", { staticClass: "d-block mb-2 mt-2" }, [
+                _c("b", { staticClass: "mr-3" }, [_vm._v("ФИО:")]),
+                _vm._v(_vm._s(_vm.resume[0].fio))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "company d-block mb-2" }, [
+                _c("b", { staticClass: "mr-3" }, [_vm._v("Образование:")]),
+                _vm._v(" " + _vm._s(_vm.resume[0].education))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "address d-block mb-2" }, [
+                _c("b", { staticClass: "mr-3" }, [_vm._v("Адресс:")]),
+                _vm._v(_vm._s(_vm.resume[0].address))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "salary d-block mb-2" }, [
+                _c("b", { staticClass: "mr-3" }, [_vm._v("Опыт работы:")]),
+                _vm._v(_vm._s(_vm.resume[0].expiriens))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "description d-block mb-2" }, [
+                _c("b", { staticClass: "mr-3" }, [_vm._v("Навыки:")]),
+                _vm._v(_vm._s(_vm._f("cutText")(_vm.resume[0].scills, 195)))
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "edit btn btn-primary", attrs: { href: "" } },
+              [_vm._v("Редактировать")]
+            ),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Удалить")])
           ])
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "edit btn btn-primary", attrs: { href: "" } }, [
-          _vm._v("Редактировать")
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Удалить")])
-      ]),
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.resume.length
+        ? _c("div", { staticClass: "search pt-4 pb-4 border" }, [
+            _c("div", [_vm._v("У вас еще нет резюме...")])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._l(10, function(bidt) {
+      _vm._l(_vm.bid, function(bidt) {
         return _c("div", { staticClass: "offers border pb-2" }, [
           _c("a", { staticClass: "d-block", attrs: { href: "" } }, [
             _c("span", { staticClass: "d-block mb-2 mt-2" }, [
               _c("b", { staticClass: "mr-3" }, [_vm._v("ФИО:")]),
               _vm._v(_vm._s(_vm.bid[0].fio))
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "company d-block mb-2" }, [
-              _c("b", { staticClass: "mr-3" }, [_vm._v("Образование:")]),
-              _vm._v(" " + _vm._s(_vm.bid[0].education))
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "address d-block mb-2" }, [
@@ -50496,17 +50555,23 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "salary d-block mb-2" }, [
-              _c("b", { staticClass: "mr-3" }, [_vm._v("Опыт работы:")]),
-              _vm._v(_vm._s(_vm.bid[0].expiriens))
+              _c("b", { staticClass: "mr-3" }, [_vm._v("Контакты:")]),
+              _vm._v(_vm._s(_vm.bid[0].contacts))
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "description d-block mb-2" }, [
-              _c("b", { staticClass: "mr-3" }, [_vm._v("Навыки:")]),
-              _vm._v(_vm._s(_vm._f("cutText")(_vm.bid[0].scills, 195)))
+              _c("b", { staticClass: "mr-3" }, [_vm._v("Сообщение:")]),
+              _vm._v(_vm._s(_vm._f("cutText")(_vm.bid[0].description, 195)))
             ])
           ])
         ])
-      })
+      }),
+      _vm._v(" "),
+      !_vm.bid.length
+        ? _c("div", { staticClass: "search pt-4 pb-4 border" }, [
+            _c("div", [_vm._v("Предложений пока нет...")])
+          ])
+        : _vm._e()
     ],
     2
   )
@@ -50650,30 +50715,21 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-8" }, [
           _c("div", { staticClass: "d-flex justify-content-end" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
             _c(
               "div",
               {
-                staticClass: "collapse navbar-collapse",
-                attrs: { id: "navbarsExample04" }
+                staticClass: "logout mt-3",
+                on: {
+                  click: function($event) {
+                    return _vm.logout()
+                  }
+                }
               },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "logout mt-3",
-                    on: {
-                      click: function($event) {
-                        return _vm.logout()
-                      }
-                    }
-                  },
-                  [_vm._v("Выйти")]
-                )
-              ]
+              [_vm._v("Выйти")]
             )
           ])
         ])
@@ -50700,36 +50756,50 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "ul",
-      { staticClass: "navbar-nav d-flex justify-content-end w-100 mt-2" },
+      "div",
+      {
+        staticClass: "collapse navbar-collapse",
+        attrs: { id: "navbarsExample04" }
+      },
       [
-        _c("li", { staticClass: "nav-item mr-5" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: { href: "/employee/search-for-bid" }
-            },
-            [_vm._v("Поиск по вакансиям")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item mr-5" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: { href: "/employee/resume/create" }
-            },
-            [_vm._v("Создать резюме")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item mr-5" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("Резюме")
-          ])
-        ])
+        _c(
+          "ul",
+          { staticClass: "navbar-nav d-flex justify-content-end w-100 mt-2" },
+          [
+            _c("li", { staticClass: "nav-item mr-5" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "/employee/search-for-bid" }
+                },
+                [_vm._v("Поиск по вакансиям")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item mr-5" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "/employee/resume/create" }
+                },
+                [_vm._v("Создать резюме")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item mr-5" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "/employee/employee-resume" }
+                },
+                [_vm._v("Резюме")]
+              )
+            ])
+          ]
+        )
       ]
     )
   },
@@ -50777,225 +50847,300 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "form-container mx-auto mt-2" }, [
-      _c("form", [
-        _c("span", { staticClass: "title d-block mb-3" }, [_vm._v("Резюме")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "education" }
-              },
-              [_vm._v("Образование")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("education")
-                },
-                attrs: {
-                  name: "education",
-                  type: "text",
-                  id: "education",
-                  placeholder: "Образование"
-                }
-              }),
-              _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.addResume($event)
+            }
+          }
+        },
+        [
+          _c("span", { staticClass: "title d-block mb-3" }, [_vm._v("Резюме")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "education" }
+                },
+                [_vm._v("Образование")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("education"),
-                      expression: "errors.has('education')"
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resume.education,
+                      expression: "resume.education"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("education")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "specialty" }
-              },
-              [_vm._v("Специальность")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("education")
+                  },
+                  attrs: {
+                    name: "education",
+                    type: "text",
+                    id: "education",
+                    placeholder: "Образование"
+                  },
+                  domProps: { value: _vm.resume.education },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.resume, "education", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("specialty")
-                },
-                attrs: {
-                  name: "specialty",
-                  type: "text",
-                  id: "specialty",
-                  placeholder: "Специальность"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("education"),
+                        expression: "errors.has('education')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("education")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "specialty" }
+                },
+                [_vm._v("Специальность")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("Специальность"),
-                      expression: "errors.has('Специальность')"
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resume.specialty,
+                      expression: "resume.specialty"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("specialty")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-4 control-label",
-                attrs: { for: "expirience" }
-              },
-              [_vm._v("Стаж")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|alpha|min:4|max:20",
-                    expression: "'required|alpha|min:4|max:20'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("specialty")
+                  },
+                  attrs: {
+                    name: "specialty",
+                    type: "text",
+                    id: "specialty",
+                    placeholder: "Специальность"
+                  },
+                  domProps: { value: _vm.resume.specialty },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.resume, "specialty", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("expirience")
-                },
-                attrs: {
-                  name: "expirience",
-                  type: "text",
-                  id: "expirience",
-                  placeholder: "Стаж"
-                }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("Специальность"),
+                        expression: "errors.has('Специальность')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("specialty")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-sm-4 control-label",
+                  attrs: { for: "experience" }
+                },
+                [_vm._v("Стаж")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("expirience"),
-                      expression: "errors.has('expirience')"
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|alpha|min:4|max:20",
+                      expression: "'required|alpha|min:4|max:20'"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resume.experience,
+                      expression: "resume.experience"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("expirience")))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 control-label",
-                attrs: { for: "skills" }
-              },
-              [_vm._v("Навыки")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: "required|max:255",
-                    expression: "'required|max:255'"
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("experience")
+                  },
+                  attrs: {
+                    name: "experience",
+                    type: "text",
+                    id: "experience",
+                    placeholder: "Стаж"
+                  },
+                  domProps: { value: _vm.resume.experience },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.resume, "experience", $event.target.value)
+                    }
                   }
-                ],
-                staticClass: "form-control",
-                class: {
-                  input: true,
-                  "alert-danger": _vm.errors.has("skills")
-                },
-                attrs: { name: "skills", id: "skills", placeholder: "Навыки" }
-              }),
-              _vm._v(" "),
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("experience"),
+                        expression: "errors.has('experience')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("experience")))]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "row" }, [
               _c(
-                "span",
+                "label",
                 {
+                  staticClass: "col-md-4 control-label",
+                  attrs: { for: "skills" }
+                },
+                [_vm._v("Навыки")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-8" }, [
+                _c("textarea", {
                   directives: [
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.errors.has("skills"),
-                      expression: "errors.has('skills')"
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required|max:255",
+                      expression: "'required|max:255'"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resume.skills,
+                      expression: "resume.skills"
                     }
                   ],
-                  staticClass: "help is-danger"
-                },
-                [_vm._v(_vm._s(_vm.errors.first("skills")))]
-              )
+                  staticClass: "form-control",
+                  class: {
+                    input: true,
+                    "alert-danger": _vm.errors.has("skills")
+                  },
+                  attrs: {
+                    name: "skills",
+                    id: "skills",
+                    placeholder: "Навыки"
+                  },
+                  domProps: { value: _vm.resume.skills },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.resume, "skills", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("skills"),
+                        expression: "errors.has('skills')"
+                      }
+                    ],
+                    staticClass: "help is-danger"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("skills")))]
+                )
+              ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-block mt-4",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Создать")]
-        )
-      ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block mt-4",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Создать")]
+          )
+        ]
+      )
     ])
   ])
 }

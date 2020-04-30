@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Resume;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends Controller
 {
@@ -19,7 +20,7 @@ class ResumeController extends Controller
     }
 
 
-    public function showResume($id) {
+    public function showResume() {
 
 
         return view('employee.show-resume');
@@ -43,7 +44,10 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['user_id']= Auth::id();
+
+        return $request;
+        Resume::create($request->all());
     }
 
     /**

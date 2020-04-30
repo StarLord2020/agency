@@ -62,4 +62,9 @@
     .logo {
         max-width: 200px;
     }
+    .logout {
+        color:#fff;
+        font-size: 17px;
+        cursor:pointer;
+    }
 </style>

@@ -18,14 +18,14 @@
                                     <a class="nav-link" href="/employee/resume/create" >Создать резюме</a>
                                 </li>
                                 <li class="nav-item mr-5">
-                                    <a class="nav-link" href="#">Резюме</a>
+                                    <a class="nav-link" href="/employee/employee-resume">Резюме</a>
                                 </li>
                             </ul>
-                            <button class="navbar-toggler navbar-dark mt-2" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="logout mt-3" @click="logout()">Выйти</div>
                         </div>
+                        <button class="navbar-toggler navbar-dark mt-2" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="logout mt-3" @click="logout()">Выйти</div>
                     </div>
                 </div>
             </div>
@@ -64,5 +64,10 @@
     }
     .logo {
         max-width: 200px;
+    }
+    .logout {
+        color:#fff;
+        font-size: 17px;
+        cursor:pointer;
     }
 </style>
