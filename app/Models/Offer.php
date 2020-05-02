@@ -13,4 +13,18 @@ class Offer extends Model
                 ->where('resume_id',$resume_id)
                 ->get();
     }
+
+    public function getOfferById($id) {
+
+        return DB::table('offers')
+            ->where('id',$id)
+            ->first();
+    }
+
+    public function dbDelete($id) {
+        DB::table('offers')
+            ->where('id',$id)
+            ->delete();
+    }
+
 }

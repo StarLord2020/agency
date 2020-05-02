@@ -30,15 +30,15 @@ Vue.use(VeeValidate, {
                 confirmed: 'Пароли не совдают'
             },
             attributes:{
-                surname:" ",
+                education:" ",
                 description:' ',
-                name:" ",
-                patronymic:" ",
+                specialty:" ",
+                experience:" ",
                 email:' ',
                 birthday:' ',
                 address:" ",
                 role:" ",
-                grade:" ",
+                skills:" ",
                 sex:" ",
                 number:" ",
                 day:" ",
@@ -70,8 +70,11 @@ Vue.component('search-for-resumes', require('./components/employer/SearchForResu
 Vue.component('manager-index-bids', require('./components/manager/ManagerIndexBids.vue').default);
 Vue.component('index-resumes', require('./components/manager/IndexResumes.vue').default);
 Vue.component('employee-resume', require('./components/employee/EmployeeResume.vue').default);
-Vue.component('edit-bid', require('./components/employer/forms/EditBid').default);
-Vue.component('publish-refuse', require('./components/manager/blocks/PublishRefuse').default);
+Vue.component('edit-bid', require('./components/employer/forms/EditBid.vue').default);
+Vue.component('publish-refuse', require('./components/manager/blocks/PublishRefuse.vue').default);
+Vue.component('edit-resume', require('./components/employee/forms/EditResume.vue').default);
+Vue.component('watch-bid', require('./components/employee/WatchBid.vue').default);
+Vue.component('watch-offer', require('./components/employee/WatchOffer.vue').default);
 const app = new Vue({
     el: '#app',
 });

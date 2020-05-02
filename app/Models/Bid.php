@@ -42,4 +42,36 @@ class Bid extends Model
                 'statuses.name'
             ]);
     }
+    public function  getBids()
+    {
+        return DB::table('bids')
+            ->join('statuses','bids.status_id','=','statuses.id')
+            ->join('specialties','bids.specialty_id','=','specialties.id')
+            ->where('statuses.id',2)
+            ->get(['bids.id',
+                'bids.company',
+                'bids.description',
+                'bids.position',
+                'bids.address',
+                'bids.salary',
+                'specialties.name as specialty',
+                'statuses.name'
+            ]);
+    }
+    public function  getBidById($id)
+    {
+        return DB::table('bids')
+            ->join('statuses','bids.status_id','=','statuses.id')
+            ->join('specialties','bids.specialty_id','=','specialties.id')
+            ->where('bids.id',$id)
+            ->first(['bids.id',
+                'bids.company',
+                'bids.description',
+                'bids.position',
+                'bids.address',
+                'bids.salary',
+                'specialties.name as specialty',
+                'statuses.name'
+            ]);
+    }
 }

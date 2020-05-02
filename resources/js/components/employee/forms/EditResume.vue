@@ -29,11 +29,11 @@
                         <div class="form-group col-sm-8 m-0">
                             <v-select
                                 v-validate="'required'"
+                                name = "specialty"
                                 v-model="resume.specialty_id"
                                 :options="specialty"
                                 :reduce="specialty => specialty.id"
                                 label="name"
-                                name = "specialty"
                             >
                                 <template v-slot:no-options="{ search, searching }">
                                     <template v-if="searching">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block mt-4">Создать</button>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Редактировать</button>
             </form>
         </div>
     </div>
@@ -90,8 +90,8 @@
 
 <script>
     export default {
-        name: "CreateResume",
-        props:['specialty'],
+        name: "EditResume",
+        props:['specialty','old-resume'],
         data() {
             return {
                 resume: {
@@ -103,22 +103,17 @@
             }
         },
         created() {
-
-            console.log(this.specialty);
+            this.resume = this.oldResume;
         },
         methods: {
             addResume() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post('/employee/resume', this.resume)
+                        axios.put('/employee/resume/'+this.resume.id, this.resume)
                             .then((response) => {
-                                if (response.data.response === 'created') {
+                                if (response.data.response === 'updated') {
 
                                     document.location.href = "/employee/employee-resume";
-                                }
-                                else if (response.data.response === 'duplicated'){
-
-                                    this.$toaster.warning('Резюме уже существует');
                                 }
                                 else {
                                     this.$toaster.error('Ошибка');

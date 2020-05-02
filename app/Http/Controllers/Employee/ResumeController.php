@@ -27,10 +27,10 @@ class ResumeController extends Controller
 
         $user_id = Auth::id();
         $resume = (new Resume())->getResumeById($user_id);
+        $offers=[];
         if($resume){
             $offers = (new Offer())->getOffers($resume->id);
         }
-
 
         return view('employee.show-resume',compact('resume','offers'));
     }
@@ -81,7 +81,9 @@ class ResumeController extends Controller
      */
     public function edit(Resume $resume)
     {
-        //
+        $specialty = (new Specialty())->getSpecialty();
+
+        return view('employee.edit-resume',compact('resume','specialty'));
     }
 
     /**
@@ -93,7 +95,17 @@ class ResumeController extends Controller
      */
     public function update(Request $request, Resume $resume)
     {
+        $data = $request->only(['education',
+            'specialty_id',
+            'status_id',
+            'skills',
+            'experience',
+            'publication_date']);
 
+
+        $resume->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**
@@ -104,6 +116,8 @@ class ResumeController extends Controller
      */
     public function destroy(Resume $resume)
     {
-        //
+        $resume->delete();
+
+        return ['response'=>'deleted'];
     }
 }

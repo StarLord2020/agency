@@ -4,14 +4,12 @@
             <div>Ваше резюме</div>
         </div>
         <div class="resume border pb-2" v-if="resume">
-            <a href="" class="d-block">
-                <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
                 <span class="company d-block mb-2"><b class="mr-3">Образование:</b> {{resume.education}}</span>
+                <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Стаж:</b>{{resume.experience}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
-            </a>
-            <a href="" class="edit btn btn-primary">Редактировать</a>
-            <button class="btn btn-danger">Удалить</button>
+            <a :href="'/employee/resume/'+resume.id+'/edit'" class="edit btn btn-primary">Редактировать</a>
+            <button @click="deleleteBid(resume.id)" class="btn btn-danger">Удалить</button>
         </div>
         <div class="search pt-4 pb-4 border" v-if="!resume">
             <div>У вас еще нет резюме...</div>
@@ -19,15 +17,18 @@
         <div class="search pt-4 pb-4 border">
             <div>Вашы предложения</div>
         </div>
-        <div class="offers border pb-2"  v-for="bid in offers">
-            <a href="" class="d-block">
-                <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid[0].fio}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid[0].address}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{bid[0].contacts}}</span>
-                <span class="description d-block mb-2"><b class="mr-3">Сообщение:</b>{{bid[0].description|cutText(195)}}</span>
+        <div class="offers border pb-2"  v-if="resume" v-for="bid in offers">
+            <a :href="'/employee/watch-offer/'+bid.id" class="d-block">
+                <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>
+                <span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{bid.company}}</span>
+                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{bid.contacts}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{bid.salary}}</span>
+                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
             </a>
         </div>
-        <div class="search pt-4 pb-4 border" v-if="!offers.length">
+        <div class="search pt-4 pb-4 border" v-if="!offers.length||!resume">
             <div>Предложений пока нет...</div>
         </div>
     </div>
@@ -40,16 +41,6 @@
         data() {
             return {
 
-                bid:[
-                    // {
-                    //     fio:'Petrov Aleks Semonovich',
-                    //     address:'Kramatorsk',
-                    //     contacts:'dd($this->skills)',
-                    //     description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis doloremque eligendi enim non odit\n' +
-                    //         '    quaerat quasi, repellendus repudiandae rerum vel velit voluptas! Architecto nobis sed soluta, sunt vero\n' +
-                    //         '    voluptatibus?'
-                    // }
-                ]
             }
         },
         filters: {
@@ -59,9 +50,34 @@
                     : value;
             }
         },
-        created() {
-            console.log(this.resume)
-            console.log(this.offers)
+        methods: {
+            deleleteBid(id) {
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
+                        if (value) {
+                            console.log(id)
+                            axios.delete('/employee/resume/' + id).then((response) => {
+                                if (response.data.response == 'deleted') {
+                                    this.$toaster.success("Резюме удалено");
+                                    this.resume=null;
+                                }
+                            }).catch(e => {
+                                this.$toaster.error("Ошибка");
+                            });
+                        }
+                    })
+                    .catch(err => {
+                    })
+            },
         }
     }
 </script>

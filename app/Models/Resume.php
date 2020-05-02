@@ -36,7 +36,8 @@ class Resume extends Model
 
         return DB::table('resumes')
             ->join('specialties','specialties.id','=','resumes.specialty_id')
-            ->where('user_id',$id)
-            ->first();
+            ->where('resumes.user_id',$id)
+            ->first(['resumes.id','specialties.name','resumes.education','resumes.skills','resumes.experience']);
+
     }
 }
