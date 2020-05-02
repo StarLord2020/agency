@@ -30,6 +30,7 @@ class StoreRequest extends FormRequest
             'education' => 'required|max:255',
             'specialty_id' => 'required|integer',
             'experience' => 'required|string:255',
+            'skills' => 'required|string:2500',
         ];
 
         return $rules;

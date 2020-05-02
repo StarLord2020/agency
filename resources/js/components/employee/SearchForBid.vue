@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="bides_container mx-auto">
         <div class="search pt-4 pb-4 border">
             <div class="row">
@@ -34,14 +35,14 @@
                 </div>
             </div>
         </div>
-        <div class="border search pt-4 pb-4" v-if="!bids.length">
+        <div class="border search pt-4 pb-4" v-if="!pages.length">
             <span>Нет вакансий...</span>
         </div>
+
             <a
                 :href="'/employee/watch-bid/'+bid.id"
                 class="d-block bid border pb-2"
-                v-for="bid in bids"
-                v-if ="(search.specialty_id?bid.specialty==search.specialty_id:true)&&(search.city?bid.address==search.city:true)"
+                v-for="bid in displayedPosts"
             >
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
@@ -51,6 +52,20 @@
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
             </a>
 
+            <nav aria-label="Page navigation example" v-if="pages.length>1">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <button type="button" class="page-link" v-if="page != 1" @click="page--">Назад</button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+5)" @click="page = pageNumber"> {{pageNumber}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" @click="page++" v-if="page < pages.length" class="page-link">Вперед</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </template>
 
@@ -64,6 +79,11 @@
                    city:null,
                    specialty_id:null
                },
+                posts : [''],
+                page: 1,
+                perPage: 9,
+                pages: [],
+                search:[]
             }
         },
         filters: {
@@ -72,7 +92,49 @@
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
             }
-        }
+        },
+        methods: {
+            setPages () {
+                let numberOfPages = Math.ceil(this.filteredList().length / this.perPage);
+                console.log(this.bids.length);
+                this.pages=[];
+                for (let index = 1; index <= numberOfPages; index++) {
+                    this.pages.push(index);
+                }
+            },
+            paginate (posts) {
+                let page = this.page;
+                let perPage = this.perPage;
+                let from = (page * perPage) - perPage;
+                let to = (page * perPage);
+                return  posts.slice(from, to);
+            },
+            filteredList: function() {
+
+                if(!this.search.specialty_id&&!this.search.city){
+
+                    return this.bids;
+                }
+
+                return this.bids.filter(bid =>
+                    (this.search.specialty_id? bid.specialty == this.search.specialty_id:true)
+                    &&
+                    (this.search.city? bid.address == this.search.city:true)
+                );
+            }
+        },
+
+        computed: {
+            displayedPosts () {
+
+                let bids =this.paginate(this.filteredList())
+                this.setPages();
+                return bids;
+            }
+        },
+        created(){
+
+        },
     }
 </script>
 
@@ -102,5 +164,13 @@
     }
     .city {
         height:35px;
+    }
+    button.page-link {
+        display: inline-block;
+    }
+    button.page-link {
+        font-size: 20px;
+        color: #29b3ed;
+        font-weight: 500;
     }
 </style>

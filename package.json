@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.10.1",
+        "laravel-vue-pagination": "^2.3.1",
         "v-datatable-light": "^0.8.0",
         "v-toaster": "^1.0.3",
         "vee-validate": "^2.2.15",
@@ -33,6 +34,7 @@
         "vue-resource": "^1.5.1",
         "vue-select": "^3.9.5",
         "vue-virtual-table": "^0.2.14",
+        "vuejs-paginate": "^2.1.0",
         "vuetify": "^2.2.20"
     }
 }
