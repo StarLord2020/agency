@@ -1,6 +1,6 @@
 <template>
     <div class="bides_container mx-auto">
-        <div class="bid border pb-2" v-for="bid in bids">
+        <div class="bid border pb-2" v-for="(bid,index) in bidList">
             <a href="" class="d-block">
                 <span class="status d-block mb-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
@@ -10,7 +10,7 @@
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
                 <span class="status d-block mb-2"><b class="mr-3">Статус:</b>{{bid.name}}</span>
             </a>
-            <publish-refuse :id="bid.id" :route="route"></publish-refuse>
+            <publish-refuse  @delete="deleteRecord(bidList,$event)" :index="index" :id="bid.id" :route="route"></publish-refuse>
         </div>
     </div>
 </template>
@@ -22,17 +22,8 @@
         props:['bids'],
         data() {
             return {
-                route:'manager/bids/'
-                // bid:[
-                //     {
-                //         position:'',
-                //         company:'',
-                //         address:'',
-                //         salary:'',
-                //         description:'',
-                //         status:''
-                //     }
-                // ]
+                route:'/manager/bids/',
+                bidList:''
             }
         },
         filters: {
@@ -41,7 +32,20 @@
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
             }
+        },
+        methods:{
+            deleteRecord(array,item)
+            {
+                console.log(item);
+                console.log(array,23213);
+               array.splice(item,1)
+            },
+
+        },
+        created() {
+            this.bidList=this.bids
         }
+
     }
 </script>
 

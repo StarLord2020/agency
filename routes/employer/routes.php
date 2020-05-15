@@ -40,13 +40,4 @@ Route::prefix('employee')
         Route::delete('/offer/{id}','OffersController@delete');
     });
 
-Route::prefix('manager')
-    ->name('manager.')
-    ->namespace('Manager')
-    ->group(function () {
-        Route::view('/','manager.index');
-        Route::get('/resumes','ResumeController@index');
-        Route::resource('/bids','BidController');
-//        Route::resource('resume', 'ResumeController');
-    });
 

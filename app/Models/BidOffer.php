@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class BidOffer extends Model
 {
     protected $fillable = ['fio','contacts','address','skills','specialty','experience','education','bid_id','resume_id'];
-    protected $table = 'bid_offer';
+    protected $table = 'bid_offers';
     public function add($bid_id) {
 
         if(!$this->unique($bid_id)){
@@ -46,7 +46,7 @@ class BidOffer extends Model
 
     public function unique($bid_id){
 
-        $res = DB::table('bid_offer')->where('bid_id',$bid_id)->first();
+        $res = DB::table('bid_offers')->where('bid_id',$bid_id)->first();
 
         if(!$res) {
 

@@ -32,6 +32,7 @@ class Bid extends Model
         return DB::table('bids')
             ->join('statuses','bids.status_id','=','statuses.id')
             ->join('specialties','bids.specialty_id','=','specialties.id')
+            ->where('bids.status_id','1')
             ->get(['bids.id',
                 'bids.company',
                 'bids.description',
@@ -47,7 +48,7 @@ class Bid extends Model
         return DB::table('bids')
             ->join('statuses','bids.status_id','=','statuses.id')
             ->join('specialties','bids.specialty_id','=','specialties.id')
-            ->where('statuses.id',2)
+            ->where('statuses.id',1)
             ->get(['bids.id',
                 'bids.company',
                 'bids.description',
