@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class BidOffer extends Model
 {
-    protected $fillable = ['fio','contacts','address','skills','specialty','experience','education','bid_id','resume_id'];
+    protected $fillable = ['fio','contacts','address','skills','specialty','experience','education','bid_id','resume_id','user_id'];
     protected $table = 'bid_offers';
     public function add($bid_id) {
 
@@ -22,7 +22,6 @@ class BidOffer extends Model
         $fio = $user->FIO;
         $email = $user->email;
         $address =  $user->address;
-
         $resume = DB::table('resumes')->where('user_id',$user_id)->first();
         if(!$resume) {
 
@@ -37,6 +36,7 @@ class BidOffer extends Model
         $bidOffer['experience']=$resume->experience;
         $bidOffer['education']=$resume->education;
         $bidOffer['bid_id']=$bid_id;
+        $bidOffer['user_id']=$user_id;
         $bidOffer['resume_id']=$resume->id;
 
         BidOffer::create($bidOffer);

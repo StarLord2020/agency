@@ -42,7 +42,7 @@ class CreateBidOffersTable extends Migration
                 ->onDelete('cascade');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('resumes')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
