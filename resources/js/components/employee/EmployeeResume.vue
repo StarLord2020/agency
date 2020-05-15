@@ -17,7 +17,7 @@
         <div class="search pt-4 pb-4 border">
             <div>Вашы предложения</div>
         </div>
-        <div class="offers border pb-2"  v-if="resume" v-for="bid in offers">
+        <div class="offers border pb-2"  v-if="resume" v-for="bid in displayedPosts">
             <a :href="'/employee/watch-offer/'+bid.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{bid.company}}</span>
@@ -31,6 +31,20 @@
         <div class="search pt-4 pb-4 border" v-if="!offers.length||!resume">
             <div>Предложений пока нет...</div>
         </div>
+
+        <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button type="button" class="page-link" v-if="page != 1" @click="page--">Назад</button>
+                </li>
+                <li class="page-item">
+                    <button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+5)" @click="page = pageNumber"> {{pageNumber}} </button>
+                </li>
+                <li class="page-item">
+                    <button type="button" @click="page++" v-if="page < pages.length" class="page-link">Вперед</button>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -40,7 +54,9 @@
         props:['resume','offers'],
         data() {
             return {
-
+                page: 1,
+                perPage: 5,
+                pages: [],
             }
         },
         filters: {
@@ -78,7 +94,40 @@
                     .catch(err => {
                     })
             },
+            setPages () {
+                let numberOfPages = Math.ceil(this.offers.length / this.perPage);
+                this.pages=[];
+                for (let index = 1; index <= numberOfPages; index++) {
+                    this.pages.push(index);
+                }
+            },
+            paginate (posts) {
+                let page = this.page;
+                let perPage = this.perPage;
+                let from = (page * perPage) - perPage;
+                let to = (page * perPage);
+                return  posts.slice(from, to);
+            },
+            openSlide(){
+                window.scrollTo(0, 0)
+            }
+        },
+        computed: {
+            displayedPosts () {
+
+                return this.paginate(this.offers)
+            }
+        },
+        watch:{
+            page(){
+                this.openSlide();
+            }
+        },
+        created() {
+
+            this.setPages();
         }
+
     }
 </script>
 
@@ -108,6 +157,14 @@
     .search {
         padding-left:15px;
         padding-right:15px;
+    }
+    button.page-link {
+        display: inline-block;
+    }
+    button.page-link {
+        font-size: 20px;
+        color: #29b3ed;
+        font-weight: 500;
     }
 </style>
 

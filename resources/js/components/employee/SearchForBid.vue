@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div ref="up">
     <div class="bides_container mx-auto">
         <div class="search pt-4 pb-4 border">
             <div class="row">
                 <div class="col-2">
-                   <span class="d-block mt-1">Поиск</span>
+                   <span class="d-block mt-1" >Поиск</span>
                 </div>
                 <div class="col-5">
                     <div class="form-group">
@@ -52,7 +52,7 @@
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
             </a>
 
-            <nav aria-label="Page navigation example" v-if="pages.length>1">
+            <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
                 <ul class="pagination">
                     <li class="page-item">
                         <button type="button" class="page-link" v-if="page != 1" @click="page--">Назад</button>
@@ -79,11 +79,9 @@
                    city:null,
                    specialty_id:null
                },
-                posts : [''],
                 page: 1,
                 perPage: 9,
                 pages: [],
-                search:[]
             }
         },
         filters: {
@@ -121,6 +119,9 @@
                     &&
                     (this.search.city? bid.address == this.search.city:true)
                 );
+            },
+            openSlide(){
+                window.scrollTo(0, 0)
             }
         },
 
@@ -132,9 +133,11 @@
                 return bids;
             }
         },
-        created(){
-
-        },
+        watch:{
+            page(){
+                this.openSlide();
+            }
+        }
     }
 </script>
 
