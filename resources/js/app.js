@@ -78,6 +78,7 @@ Vue.component('publish-refuse', require('./components/manager/blocks/PublishRefu
 Vue.component('edit-resume', require('./components/employee/forms/EditResume.vue').default);
 Vue.component('watch-bid', require('./components/employee/WatchBid.vue').default);
 Vue.component('watch-offer', require('./components/employee/WatchOffer.vue').default);
+Vue.component('offers-list', require('./components/employee/OffersList').default);
 const app = new Vue({
     el: '#app',
 });

@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class OffersController extends Controller
 {
+    public function index($resume_id){
+      $offers=[];
+
+      return view('employee.offers',compact('offers'));
+
+    }
+
     public function show($id)
     {
         $offer = (new Offer())->getOfferById($id);
