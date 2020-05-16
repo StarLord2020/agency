@@ -1,7 +1,7 @@
 <template>
     <div class="bides_container mx-auto">
         <div class="bid border pb-2" v-for="(bid,index) in MyBids">
-            <a href="" class="d-block">
+            <a :href="'/employer/bid-offers/'+bid.id" class="d-block">
                 <span class="status d-block mb-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Должyость:</b>{{bid.position}}</span>
                 <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>

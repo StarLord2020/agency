@@ -10,6 +10,7 @@ Route::prefix('employer')
                 Route::resource('bid', 'BidController');
                 Route::get('/search-for-resumes','ResumeController@index');
                 Route::put('/bid/{bid}','BidController@update');
+                Route::get('/bid-offers/{id}','BidOffersController@index');
 //                Route::resource('grade', 'GradeController');
 //                Route::resource('subject', 'SubjectController');
 //                Route::resource('user', 'UserController');

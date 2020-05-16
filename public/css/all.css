@@ -1,0 +1,18 @@
+.bides_container {
+    max-width:730px;
+    border-radius: 3px;
+    padding-left:15px;
+    padding-right:15px;
+}
+.search {
+    padding-left:15px;
+    padding-right:15px;
+}
+button.page-link {
+    display: inline-block;
+}
+button.page-link {
+    font-size: 20px;
+    color: #29b3ed;
+    font-weight: 500;
+}
