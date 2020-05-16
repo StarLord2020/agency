@@ -11,43 +11,29 @@
             <span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{offer.position}}</span>
             <span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{offer.salary}}</span>
             <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{offer.description}}</span>
-            <button @click = "deleleteOffer(offer.id)" class="send btn btn-danger">Удалить</button>
+            <buttons-component :routes="routes"></buttons-component>
         </div>
     </div>
 </template>
 
 <script>
+    import ButtonsComponent from '../ButtonsComponent'
     export default {
         name: "WatchOffer",
+        components:{
+            ButtonsComponent
+        },
         props:['offer'],
+        data() {
+            return {
+                routes:{
+                    success:'/employee/offer/'+this.offer.id,
+                    redirect:'/employee/offers/'+this.offer.resume_id,
+                }
+            }
+        },
         methods: {
-            deleleteOffer(id) {
-                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
-                    size: 'sm',
-                    buttonSize: 'md',
-                    okVariant: 'danger',
-                    okTitle: 'Да',
-                    cancelTitle: 'Отмена',
-                    footerClass: 'p-2',
-                    hideHeaderClose: false,
-                    centered: true
-                })
-                    .then(value => {
-                        if (value) {
-                            console.log(id)
-                            axios.delete('/employee/offer/' + id).then((response) => {
-                                if (response.data.response == 'deleted') {
 
-                                    document.location.href = "/employee/employee-resume";
-                                }
-                            }).catch(e => {
-                                this.$toaster.error("Ошибка");
-                            });
-                        }
-                    })
-                    .catch(err => {
-                    })
-            },
         },
         created() {
 

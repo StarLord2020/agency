@@ -34,9 +34,11 @@ Route::prefix('employee')
         Route::get('/employee-resume','ResumeController@showResume');
         Route::get('/search-for-bid','BidController@index');
         Route::get('/watch-bid/{id}','BidController@watchBid');
+        Route::put('/offer/{id}','OffersController@changeStatus');
         Route::get('/watch-offer/{id}','OffersController@show');
         Route::put('/resume/{resume}','ResumeController@update');
         Route::get('/bid-offer/{id}','BidOferController@addResume');
+        Route::get('/offers/{id}','OffersController@index');
         Route::delete('/offer/{id}','OffersController@delete');
     });
 

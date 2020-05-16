@@ -14,17 +14,6 @@ class Resume extends Model
 
         return ['response'=>'created'];
     }
-    public function unique($id){
-
-        $res = DB::table('resumes')->where('user_id',$id)->first();
-
-        if(!$res) {
-
-            return true;
-        }
-
-       return false;
-    }
 
     public function getResumesByUser() {
 

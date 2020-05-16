@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\DB;
 class Offer extends Model
 {
     public function getOffers($resume_id) {
-
-            return DB::table('resume_offers')
-                ->where('resume_id',$resume_id)
-                ->get();
+        return DB::table('resume_offers')
+            ->where('resume_id',$resume_id)
+            ->get();
     }
 
     public function getOfferById($id) {

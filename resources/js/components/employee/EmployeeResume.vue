@@ -4,7 +4,7 @@
             <div>Ваше резюме</div>
         </div>
         <div class="resume border pb-2" v-if="resumeList.length" v-for="resume in displayedPosts">
-            <a href="#">
+            <a :href="'/employee/offers/'+resume.id">
                 <span class="company d-block mb-2"><b class="mr-3">Образование:</b> {{resume.education}}</span>
                 <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Стаж:</b>{{resume.experience}}</span>
@@ -127,9 +127,6 @@
         padding: 0 15px;
     }
     .resume:hover {
-        border: 1px solid gray!important;
-    }
-    .offers:hover {
         border: 1px solid gray!important;
     }
     a {
