@@ -11,6 +11,19 @@
             <button class="edit btn btn-primary">Опубликовать</button>
             <button class="btn btn-danger">Отказать</button>
         </div>
+        <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button type="button" class="page-link" v-if="page != 1" @click="page--">Назад</button>
+                </li>
+                <li class="page-item">
+                    <button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+5)" @click="page = pageNumber"> {{pageNumber}} </button>
+                </li>
+                <li class="page-item">
+                    <button type="button" @click="page++" v-if="page < pages.length" class="page-link">Вперед</button>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -19,6 +32,9 @@
         name: "IndexResumes",
         data() {
             return {
+                page: 1,
+                perPage: 9,
+                pages: [],
                 bid:[
                     {
                         fio:'Petrov Aleks Semonovich',
@@ -38,6 +54,39 @@
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
             }
+        },
+        methods:{
+            setPages () {
+                let numberOfPages = Math.ceil(this.filteredList().length / this.perPage);
+                console.log(this.bids.length);
+                this.pages=[];
+                for (let index = 1; index <= numberOfPages; index++) {
+                    this.pages.push(index);
+                }
+            },
+            paginate (posts) {
+                let page = this.page;
+                let perPage = this.perPage;
+                let from = (page * perPage) - perPage;
+                let to = (page * perPage);
+                return  posts.slice(from, to);
+            },
+            openSlide(){
+                window.scrollTo(0, 0)
+            }
+        },
+        computed: {
+            displayedPosts () {
+
+                let bids =this.paginate(this.filteredList())
+                this.setPages();
+                return bids;
+            }
+        },
+        watch:{
+            page(){
+                this.openSlide();
+            }
         }
     }
 </script>
@@ -53,6 +102,14 @@
     }
     .bid:hover {
         border: 1px solid gray!important;
+    }
+    button.page-link {
+        display: inline-block;
+    }
+    button.page-link {
+        font-size: 20px;
+        color: #29b3ed;
+        font-weight: 500;
     }
     a {
         text-decoration:none;

@@ -18,7 +18,7 @@
                     .then((response) => {
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Данные успешно отредактированы');
-                            this.RefreshTable(this.index);
+                            this.RefreshTable(true);
                         }
                         else {
                             this.$toaster.error('Ошибка');
@@ -34,7 +34,7 @@
                     .then((response) => {
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Данные успешно отредактированы');
-                            this.RefreshTable(this.item);
+                            this.RefreshTable(true);
                         }
                         else {
                             this.$toaster.error('Ошибка');
