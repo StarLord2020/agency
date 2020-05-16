@@ -39,6 +39,7 @@ Route::prefix('employee')
         Route::put('/resume/{resume}','ResumeController@update');
         Route::get('/bid-offer/{id}','BidOferController@addResume');
         Route::get('/offers/{id}','OffersController@index');
+        Route::get('/send-resumes/{bid}','ResumeController@getPublicResumes');
         Route::delete('/offer/{id}','OffersController@delete');
     });
 

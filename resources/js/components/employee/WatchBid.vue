@@ -11,7 +11,7 @@
                 <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid.salary}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description}}</span>
             </a>
-            <button @click = "sendResume()" class="send btn btn-primary">Отправить резюме</button>
+            <a :href="'/employee/send-resumes/'+bid.id" class="send btn btn-primary">Отправить резюме</a>
         </div>
     </div>
 </template>
@@ -20,31 +20,6 @@
     export default {
         name: "WatchBid",
         props:['bid'],
-        methods: {
-            sendResume() {
-                axios.get('/employee/bid-offer/'+this.bid.id)
-                    .then((response) => {
-                        console.log(response.data)
-                        if(response.data.response == 'created') {
-
-                            this.$toaster.success('Резюме отправлено');
-                        }
-                        else if(response.data.response == 'duplicated'){
-                            this.$toaster.warning('Резюме уже отправлено');
-                        }
-                        else if(response.data.response == 'noResume'){
-                            this.$toaster.warning('У вас нет резюме');
-                        }
-                    })
-                    .catch(e => {
-                        this.$toaster.error(e.response.data.message);
-                    })
-            }
-        },
-        created() {
-
-            console.log(this.bid);
-        }
     }
 </script>
 

@@ -38,7 +38,6 @@
         <div class="border search pt-4 pb-4" v-if="!pages.length">
             <span>Нет вакансий...</span>
         </div>
-
             <a
                 :href="'/employee/watch-bid/'+bid.id"
                 class="d-block bid border pb-2"

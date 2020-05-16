@@ -85,6 +85,7 @@ Vue.component('table-manager', require('./components/forms/TableAdmin').default)
 Vue.component('index-specialties', require('./components/manager/IndexSpecialties').default);
 Vue.component('create-specialty', require('./components/manager/CreateSpecialty').default);
 Vue.component('edit-specialty', require('./components/manager/EditSpecialty').default);
+Vue.component('send-resume', require('./components/employee/SendResume').default);
 const app = new Vue({
     el: '#app',
 });
