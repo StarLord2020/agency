@@ -55,4 +55,9 @@ class BidOffer extends Model
 
         return false;
     }
+    public function getBidOffers($bid_id) {
+        return DB::table('bid_offers')
+            ->where('bid_id',$bid_id)
+            ->get();
+    }
 }
