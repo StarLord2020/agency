@@ -57,7 +57,14 @@ class BidOffer extends Model
     }
     public function getBidOffers($bid_id) {
         return DB::table('bid_offers')
+            ->join('users','bid_offers.user_id','=','users.id')
+            ->join('specialties','bid_offers.specialty_id','=','specialties.id')
+            ->join('resumes','bid_offers.resume_id','=','resumes.id')
             ->where('bid_id',$bid_id)
-            ->get();
+            ->get('users.fio as fio',
+                'users.address as address',
+                'users.number as contacts',
+                ''
+                );
     }
 }

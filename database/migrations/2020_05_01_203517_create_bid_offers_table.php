@@ -19,7 +19,6 @@ class CreateBidOffersTable extends Migration
             $table->enum('status',['Отказано','В рассмотрении','Принято']);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('resume_id');
-            $table->unsignedBigInteger('specialty_id');
             $table->timestamps();
         });
 
@@ -37,11 +36,6 @@ class CreateBidOffersTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('specialty_id')
-                ->references('id')
-                ->on('specialties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
