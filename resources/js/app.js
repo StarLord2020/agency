@@ -86,6 +86,7 @@ Vue.component('index-specialties', require('./components/manager/IndexSpecialtie
 Vue.component('create-specialty', require('./components/manager/CreateSpecialty').default);
 Vue.component('edit-specialty', require('./components/manager/EditSpecialty').default);
 Vue.component('bid-offer-list', require('./components/employer/BidOfferList').default);
+Vue.component('send-resume', require('./components/employee/SendResume').default);
 const app = new Vue({
     el: '#app',
 });

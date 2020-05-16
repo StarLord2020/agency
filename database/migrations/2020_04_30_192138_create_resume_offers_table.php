@@ -15,18 +15,14 @@ class CreateResumeOffersTable extends Migration
     {
         Schema::create('resume_offers', function (Blueprint $table) {
             $table->id();
-            $table->string('fio');
-            $table->string('contacts');
-            $table->string('address');
             $table->string('company');
             $table->string('position');
-            $table->string('specialty');
             $table->string('salary');
-            $table->string('experience');
             $table->enum('status',['Отказано','В рассмотрении','Принято']);
             $table->string('description');
             $table->unsignedBigInteger('resume_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('specialty_id');
             $table->timestamps();
         });
 
@@ -39,6 +35,11 @@ class CreateResumeOffersTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('specialty_id')
+                ->references('id')
+                ->on('specialties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

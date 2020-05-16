@@ -9,6 +9,7 @@
                 <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Стаж:</b>{{resume.experience}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
+                <span class="description d-block mb-2"><b class="mr-3">Статус:</b>{{resume.status}}</span>
             </a>
             <a :href="'/employee/resume/'+resume.id+'/edit'" class="edit btn btn-primary">Редактировать</a>
             <button @click="deleleteBid(resume.id,resume)" class="btn btn-danger">Удалить</button>

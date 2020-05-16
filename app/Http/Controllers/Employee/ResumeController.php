@@ -22,24 +22,21 @@ class ResumeController extends Controller
 
     }
 
-
-    public function showResume() {
-
-
+    public function showResume()
+    {
         $resumes = (new Resume())->getResumesByUser();
         $offers=[];
-//        if($resume){
-//            $offers = (new Offer())->getOffers($resume->id);
-//        }
 
         return view('employee.show-resume',compact('resumes','offers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getPublicResumes($bid_id)
+    {
+        $resumes = (new Resume())->getPublicResumesByUser();
+
+        return view('employee.send-resume',compact('resumes','bid_id'));
+    }
+
     public function create()
     {
         $specialty = (new Specialty())->getSpecialties();
@@ -47,12 +44,7 @@ class ResumeController extends Controller
         return view('employee.create-resume',compact('specialty'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreRequest $request)
     {
         $resume = $request->all();
@@ -62,23 +54,11 @@ class ResumeController extends Controller
         return (new Resume()) -> prepareForCreate($resume);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
     public function show(Resume $resume)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Resume $resume)
     {
         $specialty = (new Specialty())->getSpecialty();
