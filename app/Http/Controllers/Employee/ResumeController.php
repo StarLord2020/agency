@@ -25,14 +25,14 @@ class ResumeController extends Controller
 
     public function showResume() {
 
-        $user_id = Auth::id();
-        $resume = (new Resume())->getResumeById($user_id);
-        $offers=[];
-        if($resume){
-            $offers = (new Offer())->getOffers($resume->id);
-        }
 
-        return view('employee.show-resume',compact('resume','offers'));
+        $resumes = (new Resume())->getResumesByUser();
+        $offers=[];
+//        if($resume){
+//            $offers = (new Offer())->getOffers($resume->id);
+//        }
+
+        return view('employee.show-resume',compact('resumes','offers'));
     }
 
     /**
@@ -86,13 +86,6 @@ class ResumeController extends Controller
         return view('employee.edit-resume',compact('resume','specialty'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Resume $resume)
     {
         $data = $request->only(['education',
@@ -108,12 +101,6 @@ class ResumeController extends Controller
         return ['response'=>'updated'];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Resume $resume)
     {
         $resume->delete();

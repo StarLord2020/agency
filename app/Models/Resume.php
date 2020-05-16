@@ -10,15 +10,9 @@ class Resume extends Model
     protected $fillable = ['education','skills','specialty_id','experience','user_id','status_id','publication_date'];
 
     public function  prepareForCreate($resume){
+        Resume::create($resume);
 
-        if($this->unique($resume['user_id'])){
-
-            Resume::create($resume);
-
-            return ['response'=>'created'];
-        }
-
-        return ['response'=>'duplicated'];
+        return ['response'=>'created'];
     }
     public function unique($id){
 
@@ -32,12 +26,11 @@ class Resume extends Model
        return false;
     }
 
-    public function getResumeById($id) {
+    public function getResumesByUser() {
 
         return DB::table('resumes')
             ->join('specialties','specialties.id','=','resumes.specialty_id')
-            ->where('resumes.user_id',$id)
-            ->first(['resumes.id','specialties.name','resumes.education','resumes.skills','resumes.experience']);
-
+            ->where('resumes.user_id',auth()->user()->id)
+            ->get(['resumes.id','specialties.name','resumes.education','resumes.skills','resumes.experience']);
     }
 }

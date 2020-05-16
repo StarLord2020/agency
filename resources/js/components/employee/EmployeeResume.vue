@@ -3,35 +3,36 @@
         <div class="search pt-4 pb-4 border">
             <div>Ваше резюме</div>
         </div>
-        <div class="resume border pb-2" v-if="resume">
+        <div class="resume border pb-2" v-if="resumeList.length" v-for="resume in displayedPosts">
+            <a href="#">
                 <span class="company d-block mb-2"><b class="mr-3">Образование:</b> {{resume.education}}</span>
                 <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Стаж:</b>{{resume.experience}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
+            </a>
             <a :href="'/employee/resume/'+resume.id+'/edit'" class="edit btn btn-primary">Редактировать</a>
-            <button @click="deleleteBid(resume.id)" class="btn btn-danger">Удалить</button>
+            <button @click="deleleteBid(resume.id,resume)" class="btn btn-danger">Удалить</button>
         </div>
-        <div class="search pt-4 pb-4 border" v-if="!resume">
+        <div class="search pt-4 pb-4 border" v-if="!resumeList.length">
             <div>У вас еще нет резюме...</div>
         </div>
-        <div class="search pt-4 pb-4 border">
-            <div>Вашы предложения</div>
-        </div>
-        <div class="offers border pb-2"  v-if="resume" v-for="bid in displayedPosts">
-            <a :href="'/employee/watch-offer/'+bid.id" class="d-block">
-                <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{bid.company}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{bid.contacts}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{bid.salary}}</span>
-                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>
-            </a>
-        </div>
-        <div class="search pt-4 pb-4 border" v-if="!offers.length||!resume">
-            <div>Предложений пока нет...</div>
-        </div>
-
+        <!--<div class="search pt-4 pb-4 border">-->
+            <!--<div>Вашы предложения</div>-->
+        <!--</div>-->
+        <!--<div class="offers border pb-2"  v-if="resume" v-for="bid in displayedPosts">-->
+            <!--<a :href="'/employee/watch-offer/'+bid.id" class="d-block">-->
+                <!--<span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>-->
+                <!--<span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{bid.company}}</span>-->
+                <!--<span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>-->
+                <!--<span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{bid.contacts}}</span>-->
+                <!--<span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>-->
+                <!--<span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{bid.salary}}</span>-->
+                <!--<span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description|cutText(195)}}</span>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="search pt-4 pb-4 border" v-if="!offers.length||!resume">-->
+            <!--<div>Предложений пока нет...</div>-->
+        <!--</div>-->
         <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
             <ul class="pagination">
                 <li class="page-item">
@@ -51,12 +52,13 @@
 <script>
     export default {
         name: "EmployeeResume",
-        props:['resume','offers'],
+        props:['resumes','offers'],
         data() {
             return {
                 page: 1,
                 perPage: 5,
                 pages: [],
+                resumeList:[]
             }
         },
         filters: {
@@ -67,7 +69,7 @@
             }
         },
         methods: {
-            deleleteBid(id) {
+            deleleteBid(id,resume) {
                 this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
                     size: 'sm',
                     buttonSize: 'md',
@@ -80,11 +82,11 @@
                 })
                     .then(value => {
                         if (value) {
-                            console.log(id)
                             axios.delete('/employee/resume/' + id).then((response) => {
                                 if (response.data.response == 'deleted') {
                                     this.$toaster.success("Резюме удалено");
-                                    this.resume=null;
+                                    let index =this.resumeList.findIndex(el => el.id === id)
+                                    this.resumeList.splice(index,1)
                                 }
                             }).catch(e => {
                                 this.$toaster.error("Ошибка");
@@ -95,7 +97,7 @@
                     })
             },
             setPages () {
-                let numberOfPages = Math.ceil(this.offers.length / this.perPage);
+                let numberOfPages = Math.ceil(this.resumeList.length / this.perPage);
                 this.pages=[];
                 for (let index = 1; index <= numberOfPages; index++) {
                     this.pages.push(index);
@@ -115,7 +117,7 @@
         computed: {
             displayedPosts () {
 
-                return this.paginate(this.offers)
+                return this.paginate(this.resumeList)
             }
         },
         watch:{
@@ -124,7 +126,7 @@
             }
         },
         created() {
-
+            this.resumeList = this.resumes;
             this.setPages();
         }
 

@@ -40,7 +40,7 @@
         }
     </style>
 </head>
-<body>
+<body class="pr-0">
 <div id="app">
     <employee-header></employee-header>
     <div class="wrapper">
