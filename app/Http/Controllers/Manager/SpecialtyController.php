@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bid;
+use App\Http\Requests\Manager\UpdateRequest;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 
-class BidController extends Controller
+class SpecialtyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,11 @@ class BidController extends Controller
      */
     public function index()
     {
-        $myBids=(new Bid())->getAllBids();
-        return view('manager.index-bids',compact('myBids'));
+        $specialties=(new Specialty())->getSpecialties();
+
+        return view('manager.index-specialties',compact('specialties'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +28,7 @@ class BidController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.create-specialty');
     }
 
     /**
@@ -36,7 +39,8 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $response=(new Specialty())->createSpecialty($request->only('name'));
+        return $response;
     }
 
     /**
@@ -47,8 +51,7 @@ class BidController extends Controller
      */
     public function show($id)
     {
-        $bid = (new Bid())->getBidById($id);
-        return view('manager.show-bid',compact('bid'));
+        //
     }
 
     /**
@@ -59,24 +62,25 @@ class BidController extends Controller
      */
     public function edit($id)
     {
-        //
+        $specialty=(new Specialty())->getSpecialty($id);
+
+        return view('manager.edit-specialty',compact('specialty'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Bid $bid
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bid $bid)
+    public function update(UpdateRequest $request, Specialty $specialty)
     {
-        $data = $request->only([
-            'status_id','publication_date']);
-
-        $bid->update($data);
+        $data = $request->only(['name']);
+        $specialty->update($data);
 
         return ['response'=>'updated'];
+
     }
 
     /**
@@ -87,6 +91,7 @@ class BidController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Specialty::destroy($id);
+        return ['response'=>'deleted'];
     }
 }

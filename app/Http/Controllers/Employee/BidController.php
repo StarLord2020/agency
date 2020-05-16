@@ -12,7 +12,7 @@ class BidController extends Controller
     public function index()
     {
         $myBids=(new Bid())->getBids();
-        $specialty = (new Specialty())->getSpecialty();
+        $specialty = (new Specialty())->getSpecialties();
 
         return view('employee.search-for-bid',compact('myBids','specialty'));
     }

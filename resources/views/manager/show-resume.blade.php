@@ -1,6 +1,6 @@
 @extends('manager.layouts.manager')
 
 @section('content')
-    <index-resumes :resumes="{{json_encode($myResumes)}}"></index-resumes>
+    <show-resume :resume="{{json_encode($resume)}}"></show-resume>
 @endsection
 <style></style>

@@ -1,7 +1,8 @@
 <template>
     <div class="bides_container mx-auto">
         <div class="bid border pb-2" v-for="(bid,index) in displayedPosts">
-            <a href="" class="d-block">
+            <a :href="'/manager/bids/'+bid.id" class="d-block">
+                <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>
                 <span class="status d-block mb-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
                 <span class="position d-block mb-2 mt-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
                 <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>
@@ -29,15 +30,13 @@
 </template>
 
 <script>
-
+    import paginate from '../../paginate';
     export default {
         name: "IndexBids",
+        mixins:[paginate],
         props:['bids'],
         data() {
             return {
-                page: 1,
-                perPage: 3,
-                pages: [],
                 route:'/manager/bids/',
                 bidList:''
             }
@@ -49,49 +48,11 @@
                     : value;
             }
         },
-        methods:{
-            deleteRecord(array,id)
-            {
-               let index =array.findIndex(el => el.id === id)
-               array.splice(index,1)
-            },
-            setPages () {
-                let numberOfPages = Math.ceil(this.bidList.length / this.perPage);
-                console.log(this.bids.length);
-                this.pages=[];
-                for (let index = 1; index <= numberOfPages; index++) {
-                    this.pages.push(index);
-                }
-            },
-            paginate (posts) {
-                let page = this.page;
-                let perPage = this.perPage;
-                let from = (page * perPage) - perPage;
-                let to = (page * perPage);
-                return  posts.slice(from, to);
-            },
-            openSlide(){
-                window.scrollTo(0, 0)
-            }
-
-        },
         created() {
-            this.bidList=this.bids
+            this.bidList=this.bids;
+            this.paginateList=this.bids;
+            this.setPages();
         },
-        computed: {
-            displayedPosts () {
-
-                let bids =this.paginate(this.bidList)
-                this.setPages();
-                return bids;
-            }
-        },
-        watch:{
-            page(){
-                this.openSlide();
-            }
-        }
-
     }
 </script>
 

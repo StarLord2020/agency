@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <style>
+
         header {
             position: fixed;
             width: 100%;
@@ -40,7 +41,7 @@
         }
     </style>
 </head>
-<body>
+<body class="pr-0">
 <div id="app">
     <manager-header></manager-header>
     <div class="wrapper">

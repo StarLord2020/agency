@@ -6,15 +6,20 @@
 </template>
 <script>
     export default {
-        props:['id','route',"index"],
+        props:['id','route'],
         name: "PublishRefuse",
+        data(){
+            return{
+                today: new Date(),
+        }
+        },
         methods:{
             RefreshTable(record){
                 this.$emit('delete', record);
             },
             SetStatusPublish()
             {
-                axios.put(this.route + this.id,{status_id:'2'})
+                axios.put(this.route + this.id,{status_id:'2',publication_date:this.today.toISOString().substring(0, 10)})
                     .then((response) => {
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Данные успешно отредактированы');
@@ -30,7 +35,8 @@
             },
             SetStatusRefuse()
             {
-                axios.put(this.route + this.id,{status_id:"3"})
+
+                axios.put(this.route + this.id,{status_id:"3",publication_date:this.today.toISOString().substring(0, 10)})
                     .then((response) => {
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Данные успешно отредактированы');
