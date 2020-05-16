@@ -12,6 +12,7 @@
                 <span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{offer.position}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{offer.salary}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{offer.description|cutText(195)}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Статус предложения:</b>{{offer.status}}</span>
             </a>
         </div>
             <div class="search pt-4 pb-4 border" v-if="!displayedPosts.length">
