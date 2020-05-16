@@ -79,6 +79,12 @@ Vue.component('edit-resume', require('./components/employee/forms/EditResume.vue
 Vue.component('watch-bid', require('./components/employee/WatchBid.vue').default);
 Vue.component('watch-offer', require('./components/employee/WatchOffer.vue').default);
 Vue.component('offers-list', require('./components/employee/OffersList').default);
+Vue.component('show-bid', require('./components/manager/ShowBid').default);
+Vue.component('show-resume', require('./components/manager/ShowResume').default);
+Vue.component('table-manager', require('./components/forms/TableAdmin').default);
+Vue.component('index-specialties', require('./components/manager/IndexSpecialties').default);
+Vue.component('create-specialty', require('./components/manager/CreateSpecialty').default);
+Vue.component('edit-specialty', require('./components/manager/EditSpecialty').default);
 const app = new Vue({
     el: '#app',
 });

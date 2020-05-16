@@ -12,6 +12,9 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                             <ul class="navbar-nav d-flex justify-content-end w-100 mt-2">
                                 <li class="nav-item mr-5">
+                                    <a class="nav-link" href="/manager/specialties">Специальности</a>
+                                </li>
+                                <li class="nav-item mr-5">
                                     <a class="nav-link" href="/manager/resumes" >Резюме</a>
                                 </li>
                                 <li class="nav-item mr-5">

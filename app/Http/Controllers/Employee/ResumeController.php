@@ -42,7 +42,7 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        $specialty = (new Specialty())->getSpecialty();
+        $specialty = (new Specialty())->getSpecialties();
 
         return view('employee.create-resume',compact('specialty'));
     }

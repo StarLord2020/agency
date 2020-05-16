@@ -27,13 +27,15 @@ class Bid extends Model
                     'statuses.name'
                 ]);
     }
-    public function  getAllBids()
+    public function  getBids()
     {
         return DB::table('bids')
             ->join('statuses','bids.status_id','=','statuses.id')
+            ->join('users','bids.user_id','=','users.id')
             ->join('specialties','bids.specialty_id','=','specialties.id')
-            ->where('bids.status_id','1')
+            ->where('bids.status_id','2')
             ->get(['bids.id',
+                'users.fio',
                 'bids.company',
                 'bids.description',
                 'bids.position',
@@ -43,13 +45,15 @@ class Bid extends Model
                 'statuses.name'
             ]);
     }
-    public function  getBids()
+    public function  getAllBids()
     {
         return DB::table('bids')
             ->join('statuses','bids.status_id','=','statuses.id')
+            ->join('users','bids.user_id','=','users.id')
             ->join('specialties','bids.specialty_id','=','specialties.id')
-            ->where('statuses.id',1)
+            ->where('bids.status_id','1')
             ->get(['bids.id',
+                'users.fio',
                 'bids.company',
                 'bids.description',
                 'bids.position',
@@ -62,10 +66,12 @@ class Bid extends Model
     public function  getBidById($id)
     {
         return DB::table('bids')
+            ->join('users','bids.user_id','=','users.id')
             ->join('statuses','bids.status_id','=','statuses.id')
             ->join('specialties','bids.specialty_id','=','specialties.id')
             ->where('bids.id',$id)
             ->first(['bids.id',
+                'users.fio',
                 'bids.company',
                 'bids.description',
                 'bids.position',

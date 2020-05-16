@@ -31,7 +31,7 @@ class BidController extends Controller
     public function create()
     {
         $id=Auth::id();
-        $specialities=(new Specialty())->getSpecialty();
+        $specialities=(new Specialty())->getSpecialties();
         return view('employer.create-bid',compact('id','specialities'));
     }
 
@@ -66,7 +66,7 @@ class BidController extends Controller
      */
     public function edit(Bid $bid)
     {
-        $specialities=(new Specialty())->getSpecialty();
+        $specialities=(new Specialty())->getSpecialties();
         return view('employer.edit',compact('bid','specialities'));
     }
 

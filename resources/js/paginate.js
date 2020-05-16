@@ -23,6 +23,11 @@ export default {
                 this.pages.push(index);
             }
         },
+        deleteRecord(array,id)
+        {
+            let index =array.findIndex(el => el.id === id)
+            array.splice(index,1)
+        },
         paginate (posts) {
             let page = this.page;
             let perPage = this.perPage;

@@ -15,6 +15,38 @@ class Resume extends Model
         return ['response'=>'created'];
     }
 
+    public function  getAllResumes()
+    {
+        return DB::table('resumes')
+            ->join('statuses','resumes.status_id','=','statuses.id')
+            ->join('users','resumes.user_id','=','users.id')
+            ->join('specialties','resumes.specialty_id','=','specialties.id')
+            ->where('resumes.status_id','1')
+            ->get(['resumes.id',
+                'users.fio as fio',
+                'resumes.education',
+                'resumes.skills',
+                'resumes.experience',
+                'specialties.name as specialty',
+                'statuses.name'
+            ]);
+    }
+    public function  getResumeById($id)
+    {
+        return DB::table('resumes')
+            ->join('statuses','resumes.status_id','=','statuses.id')
+            ->join('users','resumes.user_id','=','users.id')
+            ->join('specialties','resumes.specialty_id','=','specialties.id')
+            ->where('resumes.id',$id)
+            ->get(['resumes.id',
+                'users.fio as fio',
+                'resumes.education',
+                'resumes.skills',
+                'resumes.experience',
+                'specialties.name as specialty',
+                'statuses.name'
+            ]);
+    }
     public function getResumesByUser() {
 
         return DB::table('resumes')
