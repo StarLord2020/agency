@@ -11,9 +11,9 @@ class OffersController extends Controller
 {
     public function index($resume_id){
 
-      $offers=(new Offer())->getOffers($resume_id);
+          $offers=(new Offer())->getOffers($resume_id);
 
-      return view('employee.offers',compact('offers'));
+          return view('employee.offers',compact('offers'));
 
     }
 

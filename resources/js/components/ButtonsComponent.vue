@@ -1,14 +1,14 @@
 <template>
     <div>
-        <button @click="successOffer" class="btn btn-primary">Принять</button>
-        <button @click="refuseOffer" class="btn btn-danger">Отказать</button>
+        <button v-if="buttons.success" @click="successOffer" class="btn btn-primary">Принять</button>
+        <button v-if="buttons.refuse" @click="refuseOffer" class="btn btn-danger">Отказать</button>
     </div>
 </template>
 
 <script>
     export default {
         name: "ButtonsComponent",
-        props:['routes'],
+        props:['routes','buttons'],
         methods:{
             refuseOffer() {
                 this.$bvModal.msgBoxConfirm('Вы действительно хотите отказать?', {
