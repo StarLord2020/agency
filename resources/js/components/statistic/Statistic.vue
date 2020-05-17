@@ -27,12 +27,13 @@
                             <em style="opacity: 0.5;" v-else>Нет элементов</em>
                         </template>
                     </v-select>
+                    <div class="chart-container mt-3">
+                        <pie-chart></pie-chart>
+                    </div>
                 </div>
             </div>
             <div class="col-6">
-                <div class="chart-container">
-                    <pie-chart></pie-chart>
-                </div>
+
             </div>
         </div>
     </div>
@@ -179,7 +180,6 @@
 {
     border:1px solid #cecece;
     padding:25px;
-    max-width: 390px;
     box-shadow: 0 0 5px rgba(0,0,0,0.6);
 }
 .chart-container:hover
