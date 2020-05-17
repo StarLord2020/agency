@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
                 'address'=>'г.Краматорск,улица Парковая 59-29',
                 'role_id'=>'2'
             ],
+
             ['FIO'=>'Такмаков Максим Иванович',
                 'email'=>'takmakov@gmail.con',
                 'birthday'=>'1999-05-20',
