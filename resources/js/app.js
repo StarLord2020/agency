@@ -92,7 +92,7 @@ Vue.component('create-offer', require('./components/employer/forms/CreateOffer')
 Vue.component('watch-resume', require('./components/employer/WatchResume').default);
 Vue.component('watch-bid-offer', require('./components/employer/WatchBidOffer').default);
 Vue.component('send-bid-index', require('./components/employer/SendBidIndex').default);
-
+Vue.component('statistic', require('./components/statistic/Statistic').default);
 const app = new Vue({
     el: '#app',
 });
