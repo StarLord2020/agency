@@ -5,12 +5,12 @@
         </div>
         <div class="offer border pb-2"  v-if="displayedPosts.length" v-for="offer in displayedPosts">
             <a :href="'/employee/watch-offer/'+offer.id" class="d-block">
-<<<<<<< HEAD
+
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{offer.FIO}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{offer.company}}</span>
-=======
+
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{offer.fio}}</span>
->>>>>>> a7be20c032047b58c87e91bfe29d3253440e395d
+
                 <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{offer.address}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{offer.email}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Специальность:</b>{{offer.name}}</span>
