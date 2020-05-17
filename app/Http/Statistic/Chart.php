@@ -42,5 +42,18 @@ class Chart
 
         return $statisticSpecialtyForWeek;
     }
+    public function getStatistic($id)
+    {
+        $todayDate = date("Y-m-d");
+        $start_date = clone(new Carbon($todayDate))->addDays(-30);
+         return DB::table('bids')
+            ->select('statuses.name', DB::raw('count(bids.id) as total'))
+            ->join('statuses','bids.status_id','=','specialties.id')
+            ->whereBetween('bids.publication_date',array($start_date, $todayDate))
+            ->where('bids.specialty_id',$id)
+            ->groupBy('statuses.name')
+            ->orderBy('total','desc')
+            ->get();
+    }
 
 }

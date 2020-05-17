@@ -40,3 +40,5 @@ Route::prefix('employee')
 
 Route::get('/specialties','SpecialtiesController@getSpecialties');
 
+
+

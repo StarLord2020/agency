@@ -16,4 +16,9 @@ class ChartController extends Controller
         $topSpecialtiesResumes=(new Chart())->topSpecialtiesResume($todayDate);
         return view('manager.statisctic',compact('topSpecialtyBids','topSpecialtiesResumes'));
     }
+    public function getStatistic($id)
+    {
+
+        return responce((new Chart())->getStatistic($id),200);
+    }
 }

@@ -13,3 +13,4 @@ Route::prefix('manager')
 //        Route::resource('resume', 'ResumeController');
     });
 Route::resource('/statistic','Statistic\ChartController');
+Route::get('/statistic/{id}','Statistic\ChartController');
