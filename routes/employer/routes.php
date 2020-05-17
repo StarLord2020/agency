@@ -38,4 +38,5 @@ Route::prefix('employee')
         Route::delete('/resumes/{id}','BidOferController@delete');
     });
 
+Route::get('/specialties','SpecialtiesController@getSpecialties');
 

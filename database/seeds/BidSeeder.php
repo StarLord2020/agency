@@ -11,7 +11,7 @@ class BidSeeder extends Seeder
      */
     public function run()
     {
-//        $statuses=['1','2','3'];
+//         $statuses=['1','2','3'];
 //        $bids=[
 //            [
 //                'company'
