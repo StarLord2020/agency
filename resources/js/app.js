@@ -86,7 +86,13 @@ Vue.component('index-specialties', require('./components/manager/IndexSpecialtie
 Vue.component('create-specialty', require('./components/manager/CreateSpecialty').default);
 Vue.component('edit-specialty', require('./components/manager/EditSpecialty').default);
 Vue.component('bid-offer-list', require('./components/employer/BidOfferList').default);
+Vue.component('send-resume-index', require('./components/employee/SendResumeIndex').default);
 Vue.component('send-resume', require('./components/employee/SendResume').default);
+Vue.component('create-offer', require('./components/employer/forms/CreateOffer').default);
+Vue.component('watch-resume', require('./components/employer/WatchResume').default);
+Vue.component('watch-bid-offer', require('./components/employer/WatchBidOffer').default);
+Vue.component('send-bid-index', require('./components/employer/SendBidIndex').default);
+
 const app = new Vue({
     el: '#app',
 });

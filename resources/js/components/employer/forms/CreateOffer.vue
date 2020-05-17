@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group col-sm-8 m-0">
                             <v-select
-                                v-model="bid.speciality"
+                                v-model="bid.specialty_id"
                                 :options="specialities"
                                 :reduce="specialities => specialities.id"
                                 label="name"
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block mt-4">Создать</button>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Отправить</button>
             </form>
         </div>
     </div>
@@ -123,9 +123,9 @@
 
 <script>
     export default {
-        name: "CreateBid",
-        props:['id','specialities'],
-        data(){
+        name: "CreateOffer",
+        props:['specialities','resume'],
+        data() {
             return {
                 bid:
                     {   company:'',
@@ -133,7 +133,7 @@
                         position:'',
                         salary:'',
                         description:'',
-                        speciality:''
+                        specialty_id:''
                     },
             }
         },
@@ -141,26 +141,19 @@
             createBid() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        let bid={
-                            'company':this.bid.company,
-                            'address':this.bid.address,
-                            'position':this.bid.position,
-                            'description':this.bid.description,
-                            'salary':this.bid.salary,
-                            'user_id':this.id,
-                            'specialty_id':this.bid.speciality,
-                            'status_id':'1'
-                        }
-
-                        axios.post('/employer/bid',bid)
+                        this.bid['resume_id'] = this.resume;
+                        axios.post('/employer/offer',this.bid)
                             .then((response) => {
-                                if (response.data.result == 'ok') {
-
-                                    document.location.href = "/employer/bid";
+                                if (response.data == 'ok')
+                                {
+                                    document.location.href = "/employer/search-for-resumes";
+                                }
+                                else if (response.data.response == 'duplicated')
+                                {
+                                    this.$toaster.warning('Вакансия уже отправлена');
                                 }
                             })
                             .catch(e => {
-                                console.log(e);
                                 this.$toaster.error(e.response.data.message);
                             })
                     }

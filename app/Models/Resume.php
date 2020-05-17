@@ -22,8 +22,9 @@ class Resume extends Model
             ->join('users','resumes.user_id','=','users.id')
             ->join('specialties','resumes.specialty_id','=','specialties.id')
             ->where('resumes.status_id','1')
-            ->get(['resumes.id',
+            ->get(['resumes.id as id',
                 'users.fio as fio',
+                'users.email',
                 'resumes.education',
                 'resumes.skills',
                 'resumes.experience',
@@ -38,8 +39,10 @@ class Resume extends Model
             ->join('users','resumes.user_id','=','users.id')
             ->join('specialties','resumes.specialty_id','=','specialties.id')
             ->where('resumes.status_id','2')
-            ->get(['resumes.id',
+            ->get(['resumes.id as id',
                 'users.fio as fio',
+                'users.address',
+                'users.email',
                 'resumes.education',
                 'resumes.skills',
                 'resumes.experience',
@@ -54,8 +57,10 @@ class Resume extends Model
             ->join('users','resumes.user_id','=','users.id')
             ->join('specialties','resumes.specialty_id','=','specialties.id')
             ->where('resumes.id',$id)
-            ->get(['resumes.id',
+            ->first(['resumes.id as id',
                 'users.fio as fio',
+                'users.email',
+                'users.address',
                 'resumes.education',
                 'resumes.skills',
                 'resumes.experience',

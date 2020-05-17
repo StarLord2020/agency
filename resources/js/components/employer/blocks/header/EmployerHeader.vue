@@ -15,6 +15,9 @@
                                     <a class="nav-link" href="/employer/search-for-resumes">Поиск по резюме</a>
                                 </li>
                                 <li class="nav-item mr-5">
+                                    <a class="nav-link" href="/employer/bids">Ответы</a>
+                                </li>
+                                <li class="nav-item mr-5">
                                     <a class="nav-link" href="/employer/bid/create">Создать вакансию</a>
                                 </li>
                                 <li class="nav-item mr-5">

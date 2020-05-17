@@ -1,11 +1,10 @@
-
 export default {
     data() {
         return {
             page: 1,
             perPage: 5,
             pages: [],
-            paginateList:[]
+            paginateList:[],
         }
     },
     filters: {

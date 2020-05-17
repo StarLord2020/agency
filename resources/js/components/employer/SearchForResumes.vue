@@ -2,38 +2,44 @@
     <div class="bides_container mx-auto">
         <div class="search pt-4 pb-4 border">
             <div class="row">
-                <v-select
-                    v-model="search.specialty_id"
-                    :options="specialty"
-                    :reduce="specialty => specialty.name"
-                    label="name"
-                    placeholder = "Специальность..."
-                >
-                    <template v-slot:no-options="{ search, searching }">
-                        <template v-if="searching">
-                            Совпадений не найдено
-                        </template>
-                        <em style="opacity: 0.5;" v-else>Нет элементов</em>
-                    </template>
-                </v-select>
-                <div class="col-4">
+                <div class="col-2">
+                    <span class="d-block mt-1" >Поиск</span>
+                </div>
+                <div class="col-5">
+                    <div class="form-group">
+                        <v-select
+                            v-model="search.specialty_id"
+                            :options="specialty"
+                            :reduce="specialty => specialty.name"
+                            label="name"
+                            placeholder = "Специальность..."
+                        >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                                <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                            </template>
+                        </v-select>
+                    </div>
+                </div>
+                <div class="col-5">
                     <input
                         name="address"
                         type="text"
                         placeholder="Город..."
-                        class="form-control"
+                        class="form-control city"
+                        v-model = "search.city"
                     >
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-primary">Найти</button>
                 </div>
             </div>
         </div>
         <div class="bid border pb-2" v-for="resume in displayedPosts">
-            <a :href="'/manager/resumes/'+resume.id" class="d-block">
+            <a :href="'/employer/resume/'+resume.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{resume.fio}}</span>
                 <span class="company d-block mb-2"><b class="mr-3">Образование:</b> {{resume.education}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Специальность:</b>{{resume.specialty}}</span>
+                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{resume.address}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Опыт работы:</b>{{resume.experience}}</span>
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
             </a>
@@ -66,7 +72,9 @@
                     city:null,
                     specialty_id:null
                 },
-                resumeList:''
+                page: 1,
+                perPage: 9,
+                pages: [],
             }
         },
         filters: {
@@ -76,10 +84,55 @@
                     : value;
             }
         },
-        created() {
-            this.resumeList=this.resumes;
-            this.paginateList=this.resumes;
-            this.setPages();
+        methods: {
+            setPages () {
+                let numberOfPages = Math.ceil(this.filteredList().length / this.perPage);
+                console.log(this.resumes.length);
+                this.pages=[];
+                for (let index = 1; index <= numberOfPages; index++) {
+                    this.pages.push(index);
+                }
+            },
+            paginate (posts) {
+                let page = this.page;
+                let perPage = this.perPage;
+                let from = (page * perPage) - perPage;
+                let to = (page * perPage);
+                return  posts.slice(from, to);
+            },
+            filteredList: function() {
+
+                if(!this.search.specialty_id&&!this.search.city){
+
+                    return this.resumes;
+                }
+
+                return this.resumes.filter(resume =>
+                    (this.search.specialty_id? resume.specialty == this.search.specialty_id:true)
+                    &&
+                    (this.search.city?
+                        !resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())
+                        ||
+                        resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())>0:true)
+                );
+            },
+            openSlide(){
+                window.scrollTo(0, 0)
+            }
+        },
+
+        computed: {
+            displayedPosts () {
+
+                let resumes =this.paginate(this.filteredList())
+                this.setPages();
+                return resumes;
+            }
+        },
+        watch:{
+            page(){
+                this.openSlide();
+            }
         }
     }
 </script>
@@ -106,5 +159,12 @@
     .search {
         padding-left:15px;
         padding-right:15px;
+    }
+    .city::placeholder {
+
+        color:black;
+    }
+    .city {
+        height:35px;
     }
 </style>

@@ -116,7 +116,10 @@
                 return this.bids.filter(bid =>
                     (this.search.specialty_id? bid.specialty == this.search.specialty_id:true)
                     &&
-                    (this.search.city? bid.address == this.search.city:true)
+                    (this.search.city?
+                        !bid.address.toLowerCase().indexOf(this.search.city.toLowerCase())
+                        ||
+                        bid.address.toLowerCase().indexOf(this.search.city.toLowerCase()):true)
                 );
             },
             openSlide(){

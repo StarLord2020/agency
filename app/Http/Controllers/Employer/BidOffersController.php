@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Models\BidOffer;
+use App\Models\ResumeOffer;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BidOffersController extends Controller
 {
@@ -13,76 +16,57 @@ class BidOffersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($bid_id){
-
-        $bidOffers=(new BidOffer())->getBidOffers($bid_id);
-        return view('employer.bid-offers-list',compact('bidOffers'));
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index($bid_id)
     {
-        //
+        $bidOffers=(new BidOffer())->getBidOffers($bid_id);
+
+        return view('employer.bid-offers-list',compact('bidOffers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    public function createOffer($resume_id)
+    {
+        $specialities = (new Specialty())->getSpecialties();
+
+        return view('employer.create-offer',compact('specialities','resume_id'));
+    }
+
+
     public function store(Request $request)
     {
-        //
+
+        return (new ResumeOffer())->prepareForCreate($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show($offer_id)
     {
-        //
+        $bidOffer=(new BidOffer())->getBidOfferById($offer_id);
+
+        return view('employer.watch-bid-offer',compact('bidOffer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function changeStatus($id,Request $request)
     {
-        //
+        DB::table('bid_offers')->where('id',$id)
+            ->update($request->all());
+
+        return response('ok',200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function getAnswers()
     {
-        //
+        $answers = (new ResumeOffer())->getBidAnswers();
+
+        return view('employer.send-bid-index',compact('answers'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function delete($id){
+
+        DB::table('resume_offers')
+            ->where('id',$id)
+            ->where('user_id',auth()->user()->id)
+            ->delete();
+
+        return response('ok',200);
     }
 }

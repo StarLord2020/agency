@@ -8,7 +8,7 @@
             <span class="d-block mb-2 mt-2"><b class="mr-3">Специальность:</b>{{resume.name}}</span>
             <span class="salary d-block mb-2"><b class="mr-3">Стаж:</b>{{resume.experience}}</span>
             <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
-            <button @click="" class="btn btn-primary">Отправить</button>
+            <button @click="sendResume" class="btn btn-primary">Отправить</button>
         </div>
         <div class="search pt-4 pb-4 border" v-if="!displayedPosts.length">
             <div>У вас еще нет резюме...</div>
@@ -35,19 +35,13 @@
         name: "SendResume",
         props: ['resumes','bid'],
         mixins:[paginate],
-        data(){
-            return {
-
-            }
-        },
         methods: {
             sendResume() {
-                axios.get('/employee/bid-offer/'+this.bid.id)
+                axios.get('/employee/bid-offer/'+this.bid+'/'+this.resumes[0].id)
                     .then((response) => {
                         console.log(response.data)
                         if(response.data.response == 'created') {
-
-                            this.$toaster.success('Резюме отправлено');
+                            document.location.href = '/employee/search-for-bid';
                         }
                         else if(response.data.response == 'duplicated'){
 

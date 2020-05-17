@@ -4,13 +4,11 @@
             <div>Выбраная вакансия</div>
         </div>
         <div class="bid border pb-2">
-            <a :href="'/employee/watch-bid/'+bid.id" class="d-block">
-                <span class="position d-block mb-2 mt-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
-                <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid.salary}}</span>
-                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description}}</span>
-            </a>
+            <span class="position d-block mb-2 mt-2"><b class="mr-3">Должность:</b>{{bid.position}}</span>
+            <span class="company d-block mb-2"><b class="mr-3">Предприятие:</b> {{bid.company}}</span>
+            <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bid.address}}</span>
+            <span class="salary d-block mb-2"><b class="mr-3">Зароботная плата:</b>{{bid.salary}}</span>
+            <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bid.description}}</span>
             <a :href="'/employee/send-resumes/'+bid.id" class="send btn btn-primary">Отправить резюме</a>
         </div>
     </div>

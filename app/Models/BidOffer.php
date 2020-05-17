@@ -8,36 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class BidOffer extends Model
 {
-    protected $fillable = ['fio','contacts','address','skills','specialty','experience','education','bid_id','resume_id','user_id'];
+    protected $fillable = ['bid_id','resume_id','user_id','status'];
     protected $table = 'bid_offers';
-    public function add($bid_id) {
-
+    public function add($bid_id,$resume_id)
+    {
         if(!$this->unique($bid_id)){
 
             return ['response'=>'duplicated'];
         }
-
-        $user = Auth::user();
-        $user_id = $user->id;
-        $fio = $user->FIO;
-        $email = $user->email;
-        $address =  $user->address;
-        $resume = DB::table('resumes')->where('user_id',$user_id)->first();
-        if(!$resume) {
-
-            return ['response'=>'noResume'];
-        }
-        $specialty = DB::table('specialties')->where('id',$resume->specialty_id)->first('name');
-        $bidOffer['fio']=$fio;
-        $bidOffer['contacts']=$email;
-        $bidOffer['address']=$address;
-        $bidOffer['skills']=$resume->skills;
-        $bidOffer['specialty']=$specialty->name;
-        $bidOffer['experience']=$resume->experience;
-        $bidOffer['education']=$resume->education;
         $bidOffer['bid_id']=$bid_id;
-        $bidOffer['user_id']=$user_id;
-        $bidOffer['resume_id']=$resume->id;
+        $bidOffer['user_id']=auth()->user()->id;
+        $bidOffer['resume_id']=$resume_id;
+        $bidOffer['status']='В рассмотрении';
 
         BidOffer::create($bidOffer);
 
@@ -46,7 +28,10 @@ class BidOffer extends Model
 
     public function unique($bid_id){
 
-        $res = DB::table('bid_offers')->where('bid_id',$bid_id)->first();
+        $res = DB::table('bid_offers')
+            ->where('bid_id',$bid_id)
+            ->where('user_id',auth()->user()->id)
+            ->first();
 
         if(!$res) {
 
@@ -58,13 +43,39 @@ class BidOffer extends Model
     public function getBidOffers($bid_id) {
         return DB::table('bid_offers')
             ->join('users','bid_offers.user_id','=','users.id')
-            ->join('specialties','bid_offers.specialty_id','=','specialties.id')
             ->join('resumes','bid_offers.resume_id','=','resumes.id')
-            ->where('bid_id',$bid_id)
-            ->get('users.fio as fio',
-                'users.address as address',
-                'users.number as contacts',
-                ''
+            ->join('specialties','resumes.specialty_id','=','specialties.id')
+            ->where('bid_offers.bid_id',$bid_id)
+            ->get(['users.fio as fio', 'users.address','users.email as contacts',
+                'resumes.education','resumes.skills','resumes.experience',
+                'specialties.name', 'bid_offers.status','bid_offers.id as id']
                 );
     }
+    public function getBidOfferById($id) {
+        return DB::table('bid_offers')
+            ->join('users','bid_offers.user_id','=','users.id')
+            ->join('resumes','bid_offers.resume_id','=','resumes.id')
+            ->join('specialties','resumes.specialty_id','=','specialties.id')
+            ->where('bid_offers.id',$id)
+            ->first(['users.fio as fio', 'users.address','users.email as contacts',
+                    'resumes.education','resumes.skills','resumes.experience',
+                    'specialties.name', 'bid_offers.status','bid_offers.id as id',
+                    'bid_offers.bid_id']
+            );
+    }
+
+    public function getAnswer() {
+        return DB::table('bid_offers')
+            ->join('users','bid_offers.user_id','=','users.id')
+            ->join('bids','bid_offers.bid_id','=','bids.id')
+            ->join('resumes','resumes.id','=','bid_offers.resume_id')
+            ->join('specialties','resumes.specialty_id','=','specialties.id')
+            ->where('bid_offers.user_id',auth()->user()->id)
+            ->get(['bid_offers.id as id', 'bids.company','bids.description',
+                'bids.position','bids.address','bids.salary','specialties.name as specialty',
+                'bid_offers.status','users.email'
+                ]
+            );
+    }
+
 }

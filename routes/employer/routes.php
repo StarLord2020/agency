@@ -1,30 +1,23 @@
 <?php
 
 Route::prefix('employer')
-            ->name('employer.')
-            ->namespace('Employer')
+    ->name('employer.')
+    ->namespace('Employer')
 //            ->middleware(['auth','role:Админ'])
-            ->group(function () {
-                Route::view('/','employer.index');
-
-                Route::resource('bid', 'BidController');
-                Route::get('/search-for-resumes','ResumeController@index');
-                Route::put('/bid/{bid}','BidController@update');
-                Route::get('/bid-offers/{id}','BidOffersController@index');
-//                Route::resource('grade', 'GradeController');
-//                Route::resource('subject', 'SubjectController');
-//                Route::resource('user', 'UserController');
-//                Route::resource('student', 'StudentController');
-//                Route::resource('subject-user', 'SubjectUserController');
-//                Route::get("subject-user/index/{id}/{name}",'SubjectUserController@teachersForSubject');
-//                Route::get("student/index/{id}/{name}",'StudentController@studentsForGrade');
-//                Route::put("user/{user} ",'UserController@update');
-//                Route::put("subject/{subject} ",'SubjectController@update');
-//                Route::put("grade/{grade} ",'GradeController@update');
-//                Route::put("classroom/{classroom} ",'ClassroomController@update');
-//                Route::get("subject-user/create/{id}/{name} ",'SubjectUserController@createForm');
-//                Route::get("student/create/{id}/{name} ",'StudentController@createForm');
-            });
+    ->group(function () {
+        Route::view('/','employer.index');
+        Route::resource('bid', 'BidController');
+        Route::get('/search-for-resumes','ResumeController@index');
+        Route::put('/bid/{bid}','BidController@update');
+        Route::get('/bid-offers/{id}','BidOffersController@index');
+        Route::get('/offer/{id}','BidOffersController@createOffer');
+        Route::post('/offer','BidOffersController@store');
+        Route::get('/resume/{id}','ResumeController@show');
+        Route::get('/offer-show/{id}','BidOffersController@show');
+        Route::put('/offer/{id}','BidOffersController@changeStatus');
+        Route::get('/bids','BidOffersController@getAnswers');
+        Route::delete('/bids/{id}','BidOffersController@delete');
+    });
 
 Route::prefix('employee')
     ->name('employee.')
@@ -38,10 +31,11 @@ Route::prefix('employee')
         Route::put('/offer/{id}','OffersController@changeStatus');
         Route::get('/watch-offer/{id}','OffersController@show');
         Route::put('/resume/{resume}','ResumeController@update');
-        Route::get('/bid-offer/{id}','BidOferController@addResume');
+        Route::get('/bid-offer/{id}/{resume}','BidOferController@addResume');
         Route::get('/offers/{id}','OffersController@index');
         Route::get('/send-resumes/{bid}','ResumeController@getPublicResumes');
-        Route::delete('/offer/{id}','OffersController@delete');
+        Route::get('/resumes','BidOferController@index');
+        Route::delete('/resumes/{id}','BidOferController@delete');
     });
 
 

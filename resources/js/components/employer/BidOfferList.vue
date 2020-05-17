@@ -1,17 +1,16 @@
 <template>
     <div class="bides_container mx-auto">
         <div class="search pt-4 pb-4 border">
-            <div>Вашы предложения</div>
+            <div>Предложения по вакансии</div>
         </div>
         <div class="offer border pb-2"  v-if="displayedPosts.length" v-for="bidOffer in displayedPosts">
-            <a :href="'/employee/watch-offer/'+bidOffer.id" class="d-block">
+            <a :href="'/employer/offer-show/'+bidOffer.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bidOffer.fio}}</span>
-                <span class="address d-block mb-2"><b class="mr-3">Предприятие:</b>{{bidOffer.contacts}}</span>
+                <span class="address d-block mb-2"><b class="mr-3">Контакты:</b>{{bidOffer.contacts}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Адресс:</b>{{bidOffer.address}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Контакты:</b>{{bidOffer.skills}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Должность:</b>{{bidOffer.experience}}</span>
-                <span class="salary d-block mb-2"><b class="mr-3">Заработная плата:</b>{{bidOffer.education}}</span>
-                <span class="description d-block mb-2"><b class="mr-3">Описание:</b>{{bidOffer.status}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Опыт работы:</b>{{bidOffer.experience}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Образование:</b>{{bidOffer.education}}</span>
+                <span class="salary d-block mb-2"><b class="mr-3">Навыки:</b>{{bidOffer.skills|cutText(195)}}</span>
                 <span class="salary d-block mb-2"><b class="mr-3">Статус предложения:</b>{{bidOffer.status}}</span>
             </a>
         </div>
@@ -42,6 +41,13 @@
         data(){
             return {
                 offerList:[]
+            }
+        },
+        filters: {
+            cutText(value, symbolsCount) {
+                return value.length > symbolsCount
+                    ? value.slice(0, symbolsCount - 3) + '...'
+                    : value;
             }
         },
         created(){
