@@ -116,7 +116,7 @@
                             '#41B883',
                             '#E46651',
                         ],
-                        data: [statistic.success, statistic.cancel]
+                        data: [this.statistic.success, this.statistic.cancel]
                     }
                 ]
             }, {
