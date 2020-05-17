@@ -46,15 +46,14 @@ class Chart
     {
         $todayDate = date("Y-m-d");
         $start_date = clone(new Carbon($todayDate))->addDays(-30);
-         $resultDB=DB::table('bids')
-            ->select('statuses.name', DB::raw('count(bids.id) as total'))
+         return DB::table('bids')
+            ->select( DB::raw('count(bids.id) as total'))
             ->join('statuses','bids.status_id','=','statuses.id')
             ->whereBetween('bids.publication_date',array($start_date, $todayDate))
             ->where('bids.specialty_id',$id)
-            ->groupBy('statuses.name')
-            ->orderBy('total','desc')
+             ->where('bids.status_id',2)
             ->get();
-        $response=[sucs]
+
     }
 
 }
