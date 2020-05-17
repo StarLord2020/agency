@@ -61,7 +61,7 @@ class ResumeController extends Controller
 
     public function edit(Resume $resume)
     {
-        $specialty = (new Specialty())->getSpecialty();
+        $specialty = (new Specialty())->getSpecialties();
 
         return view('employee.edit-resume',compact('resume','specialty'));
     }

@@ -1,5 +1,8 @@
 <template>
     <div class="bides_container mx-auto">
+        <div class="search pt-4 pb-4 border">
+            <div>Вашы вакансии</div>
+        </div>
         <div class="bid border pb-2" v-for="(bid,index) in MyBids">
             <a :href="'/employer/bid-offers/'+bid.id" class="d-block">
                 <span class="status d-block mb-2"><b class="mr-3">Специальность:</b>{{bid.specialty}}</span>
@@ -12,6 +15,9 @@
             </a>
             <a :href="'/employer/bid/'+bid.id+'/edit'" class="edit btn btn-primary">Редактировать</a>
             <button @click="deleleteBid(bid.id,index)" class="btn btn-danger">Удалить</button>
+        </div>
+        <div class="search pt-4 pb-4 border" v-if="!MyBids.length">
+            <div>У вас нет вакансий...</div>
         </div>
     </div>
 </template>

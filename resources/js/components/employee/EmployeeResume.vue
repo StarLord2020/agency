@@ -15,7 +15,7 @@
             <button @click="deleleteBid(resume.id,resume)" class="btn btn-danger">Удалить</button>
         </div>
         <div class="search pt-4 pb-4 border" v-if="!resumeList.length">
-            <div>У вас еще нет резюме...</div>
+            <div>У вас нет резюме...</div>
         </div>
         <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
             <ul class="pagination">

@@ -163,5 +163,23 @@
 </script>
 
 <style scoped>
-
+    .form-container {
+        max-width: 825px;
+        padding: 25px;
+        border: 1px gray solid;
+        border-radius:7px;
+    }
+    .title {
+        font-size: 30px;
+    }
+    textarea {
+        height: 194px!important;
+        resize: none!important;
+    }
+    label {
+        font-size: 16px;
+    }
+    form {
+        margin:0;
+    }
 </style>

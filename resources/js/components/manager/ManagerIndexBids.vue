@@ -1,5 +1,8 @@
 <template>
     <div class="bides_container mx-auto">
+        <div class="search pt-4 pb-4 border">
+            <div>Вакансии</div>
+        </div>
         <div class="bid border pb-2" v-for="(bid,index) in displayedPosts">
             <a :href="'/manager/bids/'+bid.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{bid.fio}}</span>
@@ -12,6 +15,9 @@
                 <span class="status d-block mb-2"><b class="mr-3">Статус:</b>{{bid.name}}</span>
             </a>
             <publish-refuse  @delete="deleteRecord(bidList,bid.id)" :id="bid.id" :route="route"></publish-refuse>
+        </div>
+        <div class="search pt-4 pb-4 border" v-if="!displayedPosts.length">
+            <div>Нет вакансий на публикацию...</div>
         </div>
         <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
             <ul class="pagination">
@@ -82,5 +88,9 @@
     }
     .edit {
         color:#fff;
+    }
+    .search {
+        padding-left:15px;
+        padding-right:15px;
     }
 </style>

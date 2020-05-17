@@ -1,5 +1,8 @@
 <template>
     <div class="bides_container mx-auto">
+        <div class="search pt-4 pb-4 border">
+            <div>Выбраная вакансия</div>
+        </div>
         <div class="bid border pb-2">
             <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{resume[0].fio}}</span>
             <span class="company d-block mb-2"><b class="mr-3">Образование:</b> {{resume[0].education}}</span>
@@ -59,5 +62,9 @@
     }
     .edit {
         color:#fff;
+    }
+    .search {
+        padding-left:15px;
+        padding-right:15px;
     }
 </style>

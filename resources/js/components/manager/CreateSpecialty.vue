@@ -1,10 +1,10 @@
 <template>
-    <div class="form_container">
+    <div class="form-container mx-auto">
         <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
-            <span class="d-block mb-4 title">Добавление предмета</span>
+            <span class="d-block mb-4 title">Добавление специальности</span>
             <div class="form-group">
                 <div class="row">
-                    <label for="Name" class="col-sm-4 control-label">Предмет</label>
+                    <label for="Name" class="col-sm-4 control-label">Специальность</label>
                     <div class="col-sm-8">
                         <input
                             v-validate="'required'"
@@ -12,7 +12,7 @@
                             type="text"
                             name="name"
                             id="Name"
-                            placeholder="Предмет..."
+                            placeholder="Специальность..."
                             class="form-control"
                             v-model="spacialty.name"
                         >
@@ -49,13 +49,12 @@
                             .then((response) => {
                                 if (response.data.response == 'created') {
 
-                                    this.$toaster.success('Предмет успешно добавлен');
                                     document.location.href = "/manager/specialties"
                                 }
                                 else if (response.data.response == 'duplicate') {
                                     this.duplicateName=this.spacialty.name;
-                                    this.nameErr='Предмет уже добавлен';
-                                    this.$toaster.warning('Предмет уже добавлен');
+                                    this.nameErr='Специальность уже существует';
+                                    this.$toaster.warning('Специальность уже существует');
                                 }
                                 else {
 
@@ -86,11 +85,11 @@
     .alert-danger{
         border:1px solid red!important;
     }
-    .form_container {
+    .form-container {
+        max-width: 600px;
         padding: 25px;
-        border:1px solid grey;
-        margin-bottom:30px;
-        border-radius:10px;
+        border: 1px gray solid;
+        border-radius:7px;
     }
     .title {
         font-size: 30px;

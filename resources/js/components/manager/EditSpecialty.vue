@@ -1,10 +1,10 @@
 <template>
-    <div class="form_container">
+    <div class="form-container mx-auto">
         <form class="form-horizontal" role="form" @submit.prevent="updateSubject">
-            <span class="d-block mb-4 title">Редактирование предмета</span>
+            <span class="d-block mb-4 title">Редактирование специальности</span>
             <div class="form-group">
                 <div class="row">
-                    <label for="Name" class="col-sm-4 control-label">Предмет</label>
+                    <label for="Name" class="col-sm-4 control-label">Специальность</label>
                     <div class="col-sm-8">
                         <input
                             v-validate="'required|max:20'"
@@ -12,7 +12,7 @@
                             type="text"
                             name="name"
                             id="Name"
-                            placeholder="Предмет..."
+                            placeholder="Специальность..."
                             class="form-control"
                             v-model="editSpecialty.name"
                         >
@@ -49,8 +49,6 @@
                         axios.put('/manager/specialties/'+ this.editSpecialty.id, this.editSpecialty)
                             .then((response) => {
                                 if (response.data.response == 'updated') {
-
-                                    this.$toaster.success('Данные успешно отредактированы');
                                     document.location.href = "/manager/specialties"}
                                 else {
 
@@ -93,5 +91,11 @@
     }
     .alert-danger{
         border:1px solid red!important;
+    }
+    .form-container {
+        max-width: 600px;
+        padding: 25px;
+        border: 1px gray solid;
+        border-radius:7px;
     }
 </style>

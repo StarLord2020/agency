@@ -1,6 +1,8 @@
 <template>
     <div class="bides_container mx-auto">
-
+        <div class="search pt-4 pb-4 border">
+            <div>Резюме</div>
+        </div>
         <div class="bid border pb-2" v-for="resume in displayedPosts">
             <a :href="'/manager/resumes/'+resume.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{resume.fio}}</span>
@@ -11,6 +13,9 @@
                 <span class="address d-block mb-2"><b class="mr-3">Стутус:</b>{{resume.name}}</span>
             </a>
             <publish-refuse  @delete="deleteRecord(resumeList,resume.id)" :id="resume.id" :route="route"></publish-refuse>
+        </div>
+        <div class="search pt-4 pb-4 border" v-if="!displayedPosts.length">
+            <div>Нет резюме на публикацию...</div>
         </div>
         <nav aria-label="Page navigation example" class="pt-2" v-if="pages.length>1">
             <ul class="pagination">
@@ -83,7 +88,8 @@
         text-decoration:none;
         color:black;
     }
-    .edit {
-        color:#fff;
+    .search {
+        padding-left:15px;
+        padding-right:15px;
     }
 </style>

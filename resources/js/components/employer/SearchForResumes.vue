@@ -34,6 +34,9 @@
                 </div>
             </div>
         </div>
+        <div class="border search pt-4 pb-4" v-if="!pages.length">
+            <span>Нет резюме...</span>
+        </div>
         <div class="bid border pb-2" v-for="resume in displayedPosts">
             <a :href="'/employer/resume/'+resume.id" class="d-block">
                 <span class="d-block mb-2 mt-2"><b class="mr-3">ФИО:</b>{{resume.fio}}</span>
@@ -166,5 +169,9 @@
     }
     .city {
         height:35px;
+    }
+    .search {
+        padding-left:15px;
+        padding-right:15px;
     }
 </style>
