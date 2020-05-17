@@ -46,14 +46,21 @@ class Chart
     {
         $todayDate = date("Y-m-d");
         $start_date = clone(new Carbon($todayDate))->addDays(-30);
-         return DB::table('bids')
+         $published =DB::table('bids')
             ->select( DB::raw('count(bids.id) as total'))
             ->join('statuses','bids.status_id','=','statuses.id')
             ->whereBetween('bids.publication_date',array($start_date, $todayDate))
             ->where('bids.specialty_id',$id)
              ->where('bids.status_id',2)
             ->get();
+         $accepted=DB::table('bid_offers')
+             ->select( DB::raw('count(bid_offers.id) as total'))
+             ->join('bids','bids.id','=','bid_offers.bid_id')
+             ->where('bids.specialty_id',$id)
+             ->where('bid_offers.status','Принято')
+             ->get();
 
+        $result=['success'=>$accepted[0]->total,'cancel'=>$published[0]->total-$accepted[0]->total];
+         return $result;
     }
-
 }
