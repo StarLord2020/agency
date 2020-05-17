@@ -13,22 +13,24 @@
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <v-select
-                        v-model="specialty_id"
-                        :options="specialties"
-                        :reduce="specialty => specialty.id"
-                        label="name"
-                        placeholder = "Специальность..."
-                    >
-                        <template v-slot:no-options="{ search, searching }">
-                            <template v-if="searching">
-                                Совпадений не найдено
-                            </template>
-                            <em style="opacity: 0.5;" v-else>Нет элементов</em>
-                        </template>
-                    </v-select>
                     <div class="chart-container mt-3">
-                        <pie-chart></pie-chart>
+                        <div class="text-center title mb-4">Реализация вакансий по специальности</div>
+                        <v-select
+                            v-model="specialty_id"
+                            :options="specialties"
+                            :reduce="specialty => specialty.id"
+                            label="name"
+                            placeholder = "Специальность..."
+                        >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                                <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                            </template>
+                        </v-select>
+                        <pie-chart class="mt-4" :statistic="bidStatistic"></pie-chart>
+                        <div class="text-center date mb-4">{{bidStatistic.date}}</div>
                     </div>
                 </div>
             </div>
@@ -104,18 +106,17 @@
     })
     Vue.component('pie-chart', {
         extends: VueChartJs.Doughnut,
+        props:['statistic'],
         mounted () {
             this.renderChart({
-                labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+                labels: ['Реализовано', 'Нереализовано'],
                 datasets: [
                     {
                         backgroundColor: [
                             '#41B883',
                             '#E46651',
-                            '#00D8FF',
-                            '#DD1B16'
                         ],
-                        data: [4000, 20, 80, 10]
+                        data: [statistic.success, statistic.cancel]
                     }
                 ]
             }, {
@@ -123,9 +124,7 @@
                 maintainAspectRatio: false,
                 pieceLabel: {
                     mode: 'percentage',
-
                 }
-
             })
         }
 
@@ -139,7 +138,8 @@
                 bidsTitle:'Специальности по количеству вакансий',
                 resumesTitle:'Специальности по количеству резюме',
                 specialties:[],
-                specialty_id:''
+                specialty_id:'',
+                bidStatistic:[],
             }
         },
         methods:{
@@ -156,7 +156,7 @@
             getSpecialtyStatistic(specialty){
                 axios.get('/statistic/'+specialty, this.resume)
                     .then((response) => {
-                        console.log(response.data)
+                        this.bidStatistic=response.data;
 
                     })
                     .catch(e => {
@@ -185,5 +185,11 @@
 .chart-container:hover
 {
     box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.title {
+    font-size: 20px;
+}
+.date {
+    font-size:16px;
 }
 </style>
