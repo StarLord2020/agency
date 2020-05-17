@@ -12,5 +12,5 @@ Route::prefix('manager')
         Route::put('/resumes/{resume}','ResumeController@update');
 //        Route::resource('resume', 'ResumeController');
     });
-Route::resource('/statistic','Statistic\ChartController');
-Route::get('/statistic/{id}','Statistic\ChartController');
+Route::get('/statistic','Statistic\ChartController@index');
+Route::get('/statistic/{id}','Statistic\ChartController@getStatistic');

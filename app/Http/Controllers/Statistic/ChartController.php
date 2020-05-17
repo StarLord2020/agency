@@ -19,6 +19,6 @@ class ChartController extends Controller
     public function getStatistic($id)
     {
 
-        return responce((new Chart())->getStatistic($id),200);
+        return response((new Chart())->getStatistic($id),200);
     }
 }
