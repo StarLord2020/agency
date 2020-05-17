@@ -4,6 +4,9 @@
     padding-left:15px;
     padding-right:15px;
 }
+.is-danger{
+color: red;
+}
 .search {
     padding-left:15px;
     padding-right:15px;

@@ -81,11 +81,11 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <label for="salary" class="col-sm-4 control-label">Заработная плата</label>
+                        <label for="salary" class="col-sm-4 control-label">Заработная плата в грн</label>
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.salary"
-                                v-validate="'required|min:4|max:20'"
+                                v-validate="'required|decimal:10'"
                                 :class="{'input': true, 'alert-danger':errors.has('salary')}"
                                 name="salary"
                                 type="text"
@@ -93,7 +93,7 @@
                                 placeholder="Заработная плата"
                                 class="form-control"
                             >
-                            <span v-show="errors.has('salary')" class="help is-danger">{{ errors.first('salary') }}</span>
+                            <span v-show="errors.has('salary')" class="help is-danger">Зарабатная плата должна быть числовым значением </span>
                         </div>
                     </div>
                 </div>
