@@ -13,8 +13,8 @@ class StatusSeeder extends Seeder
     {
         $status=[
             ['name'=>'В рассмотрении'],
-            ['name'=>'Принят'],
-            ['name'=>'Отказ']
+            ['name'=>'Опубликовано'],
+            ['name'=>'Отказано']
         ];
         \Illuminate\Support\Facades\DB::table('statuses')->insert($status);
     }
