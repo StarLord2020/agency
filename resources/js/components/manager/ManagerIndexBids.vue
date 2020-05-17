@@ -32,7 +32,6 @@
                 </li>
             </ul>
         </nav>
-        <statistic></statistic>
     </div>
 </template>
 

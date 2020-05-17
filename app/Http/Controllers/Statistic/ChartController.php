@@ -13,6 +13,7 @@ class ChartController extends Controller
     {
         $todayDate = date("Y-m-d");
         $topSpecialtyBids=(new Chart())->topSpecialtiesBid($todayDate);
-        return view('manager.statisctic',compact('topSpecialtyBids'));
+        $topSpecialtiesResumes=(new Chart())->topSpecialtiesResume($todayDate);
+        return view('manager.statisctic',compact('topSpecialtyBids','topSpecialtiesResumes'));
     }
 }
