@@ -21,4 +21,9 @@ class ChartController extends Controller
 
         return response((new Chart())->getStatistic($id),200);
     }
+    public function getStatisticSalaryForSpecialty($id)
+    {
+
+        return response((new Chart())->getStatistic($id),200);
+    }
 }

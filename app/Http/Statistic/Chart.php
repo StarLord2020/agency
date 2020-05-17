@@ -60,7 +60,11 @@ class Chart
              ->where('bid_offers.status','Принято')
              ->get();
 
-        $result=['success'=>$accepted[0]->total,'cancel'=>$published[0]->total-$accepted[0]->total];
+        $result=['success'=>$accepted[0]->total,'cancel'=>$published[0]->total-$accepted[0]->total,'date'=>$start_date->format('Y-m-d').'/'.$todayDate];
          return $result;
+    }
+    public function getStatisticSalaryForSpecialty($id)
+    {
+
     }
 }
