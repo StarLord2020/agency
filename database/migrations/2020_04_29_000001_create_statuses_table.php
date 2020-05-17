@@ -15,7 +15,7 @@ class CreateStatusesTable extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->enum('name',['В рассмотрении','Принят','Отказ']);
+            $table->enum('name',['В рассмотрении','Опубликовано','Отказано']);
             $table->timestamps();
         });
     }

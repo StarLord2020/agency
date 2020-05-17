@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.10.1",
+        "chart.js": "^2.9.3",
         "laravel-vue-pagination": "^2.3.1",
         "v-datatable-light": "^0.8.0",
         "v-toaster": "^1.0.3",
