@@ -20,6 +20,9 @@
                                 <li class="nav-item mr-5">
                                     <a class="nav-link" href="/manager/bids">Вакансии</a>
                                 </li>
+                                <li class="nav-item mr-5">
+                                    <a class="nav-link" href="/statistic">Cтатистика</a>
+                                </li>
                             </ul>
                         </div>
                         <button class="navbar-toggler navbar-dark mt-2" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">

@@ -8,6 +8,7 @@ import Toaster from 'v-toaster'
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Paginate from 'vuejs-paginate'
+import Chart from 'chart.js';
 
 Vue.component('paginate', Paginate)
 Vue.component('pagination', require('laravel-vue-pagination'));
@@ -18,6 +19,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
+
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 import 'bootstrap/dist/css/bootstrap.css'

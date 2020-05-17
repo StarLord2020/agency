@@ -31,6 +31,7 @@
         "v-datatable-light": "^0.8.0",
         "v-toaster": "^1.0.3",
         "vee-validate": "^2.2.15",
+        "vue-chartjs": "^3.5.0",
         "vue-eagle-modal": "^1.0.5",
         "vue-resource": "^1.5.1",
         "vue-select": "^3.9.5",
