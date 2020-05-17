@@ -65,6 +65,14 @@ class Chart
     }
     public function getStatisticSalaryForSpecialty($id)
     {
-
+        $todayDate = date("Y-m-d");
+        $start_date = clone(new Carbon($todayDate))->addDays(-30);
+       $salary=DB::table('bids')
+            ->select(DB::raw('avg(bids.salary) as salaryAvg'),DB::raw('max(bids.salary) as salaryMax'))
+            ->whereBetween('bids.publication_date',array($start_date, $todayDate))
+            ->where('bids.specialty_id',$id)
+            ->where('bids.status_id','2')
+            ->get();
+        return ['salaryMax'=>round($salary[0]->salaryMax, 0),'salaryAvg'=>round($salary[0]->salaryAvg,0),'date'=>$start_date->format('Y-m-d').'/'.$todayDate];
     }
 }

@@ -14,3 +14,4 @@ Route::prefix('manager')
     });
 Route::get('/statistic','Statistic\ChartController@index');
 Route::get('/statistic/{id}','Statistic\ChartController@getStatistic');
+Route::get('/statistic-salary/{id}','Statistic\ChartController@getStatisticSalaryForSpecialty');
