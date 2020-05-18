@@ -3,9 +3,8 @@
 Route::prefix('employer')
     ->name('employer.')
     ->namespace('Employer')
-//            ->middleware(['auth','role:Админ'])
+    ->middleware(['auth','role:1'])
     ->group(function () {
-        Route::view('/','employer.index');
         Route::resource('bid', 'BidController');
         Route::get('/search-for-resumes','ResumeController@index');
         Route::put('/bid/{bid}','BidController@update');
@@ -22,8 +21,8 @@ Route::prefix('employer')
 Route::prefix('employee')
     ->name('employee.')
     ->namespace('Employee')
+    ->middleware(['auth','role:2'])
     ->group(function () {
-        Route::view('/','employee.index');
         Route::resource('resume', 'ResumeController');
         Route::get('/employee-resume','ResumeController@showResume');
         Route::get('/search-for-bid','BidController@index');
@@ -38,7 +37,7 @@ Route::prefix('employee')
         Route::delete('/resumes/{id}','BidOferController@delete');
     });
 
-Route::get('/specialties','SpecialtiesController@getSpecialties');
+Route::get('/specialties','SpecialtiesController@getSpecialties') ->middleware(['auth']);
 
 
 

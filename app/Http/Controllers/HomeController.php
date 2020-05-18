@@ -31,16 +31,13 @@ class HomeController extends Controller
         if($role[0]->name) {
             switch ($role[0]->name) {
                 case'Работодатель':
-
-                    $id=Auth::id();
-                    $myBids=(new Bid())->getUserBid($id);
-                    return view('employer.index',compact('myBids'));
+                    return redirect('/employer/bid');
                 case'Работник':
 
-                    return view('employee.index');
+                    return redirect('/employee/employee-resume');
                 case'Менеджер':
 
-                    return view('manager.index');
+                    return redirect('/manager/bids');
             }
         }
     }

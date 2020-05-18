@@ -29,13 +29,37 @@
                                 <em style="opacity: 0.5;" v-else>Нет элементов</em>
                             </template>
                         </v-select>
-                        <pie-chart class="mt-4" :statistic="bidStatistic"></pie-chart>
-                        <div class="text-center date mb-4">{{bidStatistic.date}}</div>
+                         <div>
+                            <pie-chart ref="bid" class="mt-4"></pie-chart>
+                            <div class="text-center date mb-4">{{bidStatistic.date}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-
+                <div class="form-group">
+                    <div class="chart-container mt-3">
+                        <div class="text-center title mb-4">Реализация вакансий по специальности</div>
+                        <v-select
+                            v-model="salary"
+                            :options="specialties"
+                            :reduce="specialty => specialty.id"
+                            label="name"
+                            placeholder = "Специальность..."
+                        >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                                <em style="opacity: 0.5;" v-else>Нет элементов</em>
+                            </template>
+                        </v-select>
+                        <div>
+                            <pie-chart-salary ref="salary" class="mt-4"></pie-chart-salary>
+                            <div class="text-center date mb-4">{{salaryStatistic.date}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -106,28 +130,55 @@
     })
     Vue.component('pie-chart', {
         extends: VueChartJs.Doughnut,
-        props:['statistic'],
-        mounted () {
-            this.renderChart({
-                labels: ['Реализовано', 'Нереализовано'],
-                datasets: [
-                    {
-                        backgroundColor: [
-                            '#41B883',
-                            '#E46651',
-                        ],
-                        data: [this.statistic.success, this.statistic.cancel]
+         methods:{
+            show (statistic) {
+                console.log(statistic);
+                 this.renderChart({
+                     labels: ['Реализовано', 'Нереализовано'],
+                     datasets: [
+                         {
+                             backgroundColor: [
+                                 '#41B883',
+                                 '#E46651',
+                             ],
+                             data: [statistic.success, statistic.cancel]
+                         }
+                     ]
+                 }, {
+                     responsive: true,
+                     maintainAspectRatio: false,
+                     pieceLabel: {
+                         mode: 'percentage',
+                     }
+                 })
+             }
+         }
+    })
+    Vue.component('pie-chart-salary', {
+        extends: VueChartJs.Doughnut,
+        methods:{
+            show (statistic) {
+                console.log(statistic);
+                this.renderChart({
+                    labels: ['Максимальная', 'Средняя'],
+                    datasets: [
+                        {
+                            backgroundColor: [
+                                '#41B883',
+                                '#E46651',
+                            ],
+                            data: [statistic.salaryMax, statistic.salaryAvg]
+                        }
+                    ]
+                }, {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    pieceLabel: {
+                        mode: 'percentage',
                     }
-                ]
-            }, {
-                responsive: true,
-                maintainAspectRatio: false,
-                pieceLabel: {
-                    mode: 'percentage',
-                }
-            })
+                })
+            }
         }
-
     })
 
     export default {
@@ -140,11 +191,13 @@
                 specialties:[],
                 specialty_id:'',
                 bidStatistic:[],
+                salary:'',
+                salaryStatistic:[]
             }
         },
         methods:{
             getSpecialties() {
-                axios.get('/specialties', this.resume)
+                axios.get('/specialties')
                     .then((response) => {
                         console.log(response.data)
                         this.specialties = response.data;
@@ -154,19 +207,52 @@
                     })
             },
             getSpecialtyStatistic(specialty){
-                axios.get('/statistic/'+specialty, this.resume)
+                axios.get('/statistic/'+specialty)
                     .then((response) => {
                         this.bidStatistic=response.data;
+                        console.log(this.bidStatistic);
 
                     })
                     .catch(e => {
                         console.log(e);
                     })
+            },
+            getStatisticSalary(specialty){
+                axios.get('/statistic-salary/'+specialty)
+                    .then((response) => {
+                        this.salaryStatistic=response.data;
+                        console.log(this.bidStatistic);
+
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    })
+            },
+            showBid()
+            {
+                this.$refs.bid.show(this.bidStatistic);
+            },
+            showSalary()
+            {
+                this.$refs.salary.show(this.salaryStatistic);
             }
         },
+
         watch:{
             specialty_id(){
                 this.getSpecialtyStatistic(this.specialty_id);
+
+                setTimeout(()=>{
+                    this.showBid()
+                },700);
+            },
+            salary()
+            {
+                this.getStatisticSalary(this.salary);
+
+                setTimeout(()=>{
+                    this.showSalary()
+                },700);
             }
         },
         created() {

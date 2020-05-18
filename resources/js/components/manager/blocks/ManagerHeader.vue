@@ -41,10 +41,11 @@
         name: "ManagerHeader",
         methods:{
             logout(){
+
                 axios.post('/logout')
                     .then((response)=>{
-
                     })
+                document.location.href = "/login";
             }
         }
     }

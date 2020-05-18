@@ -18,7 +18,7 @@ class CheckRole
     {
         $user = Auth::user();
         $rolesArray = explode(';', $roles);
-        if(in_array($user->role, $rolesArray)){
+        if(in_array($user->role_id, $rolesArray)){
             return $next($request);
         }else{
             return response()->view('errors.503', [], 503);
