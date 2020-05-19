@@ -9,7 +9,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.company"
-                                v-validate="'required|alpha|min:4|max:20'"
+                                v-validate="'required|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('company')}"
                                 name="company"
                                 type="text"
@@ -27,7 +27,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.address"
-                                v-validate="'required|alpha|min:4|max:20'"
+                                v-validate="'required|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('address')}"
                                 name="address"
                                 type="text"
@@ -67,7 +67,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.position"
-                                v-validate="'required|alpha|min:4|max:20'"
+                                v-validate="'required|max:20'"
                                 :class="{'input': true, 'alert-danger':errors.has('position')}"
                                 name="position"
                                 type="text"
@@ -140,14 +140,7 @@
                                 }
                             })
                             .catch(e => {
-                                // if(e.response.data.errors.email[0]){
-                                //     this.duplicateEmail=this.editUser.email;
-                                //     this.emailErr='Пользователь с данным email уже существует';
-                                //     this.$toaster.warning(e.response.data.errors.email[0]);
-                                // }
-                                // else {
-                                //     this.$toaster.error(e.response.data.errors);
-                                // }
+
                             })
                     }
                     else {

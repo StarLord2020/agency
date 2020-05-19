@@ -2,7 +2,7 @@
 Route::prefix('manager')
     ->name('manager.')
     ->namespace('Manager')
-    ->middleware(['auth','role:3'])
+//    ->middleware(['auth','role:3'])
     ->group(function () {
         Route::resource('/resumes','ResumeController');
         Route::resource('/bids','BidController');
