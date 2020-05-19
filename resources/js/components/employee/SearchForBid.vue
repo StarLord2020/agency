@@ -117,9 +117,9 @@
                     (this.search.specialty_id? bid.specialty == this.search.specialty_id:true)
                     &&
                     (this.search.city?
-                        !resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())
+                        !bid.address.toLowerCase().indexOf(this.search.city.toLowerCase())
                         ||
-                        resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())>0:true)
+                        bid.address.toLowerCase().indexOf(this.search.city.toLowerCase()):true)
                 );
             },
             openSlide(){
