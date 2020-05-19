@@ -244,7 +244,7 @@
 
                 setTimeout(()=>{
                     this.showBid()
-                },700);
+                },900);
             },
             salary()
             {
@@ -252,7 +252,7 @@
 
                 setTimeout(()=>{
                     this.showSalary()
-                },700);
+                },900);
             }
         },
         created() {
