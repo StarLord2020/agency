@@ -22,8 +22,7 @@
                 axios.put(this.route + this.id,{status_id:'2',publication_date:this.today.toISOString().substring(0, 10)})
                     .then((response) => {
                         if (response.data.response == 'updated') {
-                            this.$toaster.success('Данные успешно отредактированы');
-                            this.RefreshTable(true);
+                            this.$toaster.success('Успешно опубликовано');
                         }
                         else {
                             this.$toaster.error('Ошибка');
@@ -35,19 +34,38 @@
             },
             SetStatusRefuse()
             {
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
 
-                axios.put(this.route + this.id,{status_id:"3",publication_date:this.today.toISOString().substring(0, 10)})
-                    .then((response) => {
-                        if (response.data.response == 'updated') {
-                            this.$toaster.success('Данные успешно отредактированы');
-                            this.RefreshTable(true);
-                        }
-                        else {
-                            this.$toaster.error('Ошибка');
+                })
+                    .then(value => {
+
+                        if (value){
+                            axios.put(this.route + this.id,{status_id:"3",publication_date:this.today.toISOString().substring(0, 10)})
+                                .then((response) => {
+                                    if (response.data.response == 'updated') {
+
+                                        this.$toaster.success('Отказано');
+                                        this.RefreshTable(true);
+                                    }
+                                    else {
+                                        this.$toaster.error('Ошибка');
+                                    }
+                                })
+                                .catch(e => {
+                                    this.$toaster.error(e.response.data.errors);
+                                })
                         }
                     })
-                    .catch(e => {
-                        this.$toaster.error(e.response.data.errors);
+                    .catch(err => {
+
                     })
             }
         }
