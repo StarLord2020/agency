@@ -25,6 +25,6 @@ class ChartController extends Controller
     {
 
         return response((new Chart())->getStatisticSalaryForSpecialty($id),200);
-            dd((new Chart())->getStatisticSalaryForSpecialty($id),200);
+
     }
 }
