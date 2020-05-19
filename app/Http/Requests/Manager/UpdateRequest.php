@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:specialties,name|max:255',
+            'name'=>['string','max:20','unique:specialties,name,'.$this['id']],
         ];
     }
     public function attributes()

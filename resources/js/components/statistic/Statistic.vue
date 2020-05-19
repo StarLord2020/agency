@@ -39,7 +39,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <div class="chart-container mt-3">
-                        <div class="text-center title mb-4">Реализация вакансий по специальности</div>
+                        <div class="text-center title mb-4">Статистика зарплаты по специальности</div>
                         <v-select
                             v-model="salary"
                             :options="specialties"

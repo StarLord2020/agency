@@ -79,6 +79,7 @@ class Chart
             ->where('bids.specialty_id',$id)
             ->where('bids.status_id','2')
             ->orderBy('bids.salary', 'desc')->first();
-        return((['salaryAvg'=>round($salaryAvg->salaryAvg, 0),'salaryMax'=>round($salaryMax->salary,0),'date'=>$start_date->format('Y-m-d').'/'.$todayDate]));
+
+        return ((['salaryAvg'=>round($salaryAvg->salaryAvg??0, 0),'salaryMax'=>round($salaryMax->salary??0,0),'date'=>$start_date->format('Y-m-d').'/'.$todayDate]));
     }
 }
