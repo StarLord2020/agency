@@ -9,7 +9,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.company"
-                                v-validate="'required|max:20'"
+                                v-validate="'required'"
                                 :class="{'input': true, 'alert-danger':errors.has('company')}"
                                 name="company"
                                 type="text"
@@ -27,7 +27,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.address"
-                                v-validate="'required|max:20'"
+                                v-validate="'required'"
                                 :class="{'input': true, 'alert-danger':errors.has('address')}"
                                 name="address"
                                 type="text"
@@ -67,7 +67,7 @@
                         <div class="col-sm-8">
                             <input
                                 v-model="bid.position"
-                                v-validate="'required|max:20'"
+                                v-validate="'required'"
                                 :class="{'input': true, 'alert-danger':errors.has('position')}"
                                 name="position"
                                 type="text"
