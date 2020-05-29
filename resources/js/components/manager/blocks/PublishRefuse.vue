@@ -6,7 +6,7 @@
 </template>
 <script>
     export default {
-        props:['id','route'],
+        props:['id','route','setPages'],
         name: "PublishRefuse",
         data(){
             return{
@@ -24,6 +24,7 @@
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Успешно опубликовано');
                             this.RefreshTable(true);
+                            this.setPages();
                         }
                         else {
                             this.$toaster.error('Ошибка');

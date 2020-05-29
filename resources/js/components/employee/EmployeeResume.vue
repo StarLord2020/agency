@@ -71,6 +71,7 @@
                                     this.$toaster.success("Резюме удалено");
                                     let index =this.resumeList.findIndex(el => el.id === id)
                                     this.resumeList.splice(index,1)
+                                    this.setPages();
                                 }
                             }).catch(e => {
                                 this.$toaster.error("Ошибка");

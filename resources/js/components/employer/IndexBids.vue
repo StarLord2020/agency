@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    
     export default {
         name: "IndexBides",
         props:['bids'],
@@ -47,7 +48,8 @@
                         if (value) {
                             axios.delete('/employer/bid/' + id).then((response) => {
                                 if (response.data.response == 'deleted') {
-                                    this.MyBids.splice(index, 1)
+                                    this.MyBids.splice(index, 1);
+                                    this.setPages();
                                     this.$toaster.success("Запись успешно удалена");
                                 }
                             }).catch(e => {
