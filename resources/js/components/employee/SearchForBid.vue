@@ -119,7 +119,7 @@
                     (this.search.city?
                         !bid.address.toLowerCase().indexOf(this.search.city.toLowerCase())
                         ||
-                        bid.address.toLowerCase().indexOf(this.search.city.toLowerCase()):true)
+                        bid.address.toLowerCase().indexOf(this.search.city.toLowerCase())>0:true)
                 );
             },
             openSlide(){

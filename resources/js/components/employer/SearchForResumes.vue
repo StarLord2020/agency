@@ -116,7 +116,7 @@
                     (this.search.city?
                         !resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())
                         ||
-                        resume.address.toLowerCase().indexOf(this.search.city.toLowerCase()):true)
+                        resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())>0:true)
                 );
 
                 console.log();
