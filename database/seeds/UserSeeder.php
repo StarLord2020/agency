@@ -30,10 +30,10 @@ class UserSeeder extends Seeder
                 'role_id'=>'2'
             ],
 
-            ['FIO'=>'Такмаков Максим Иванович',
-                'email'=>'takmakov@gmail.con',
+            ['FIO'=>'Зубань Анна Юрьевна',
+                'email'=>'anyazuban@gmail.com',
                 'birthday'=>'1999-05-20',
-                'password'=>\Illuminate\Support\Facades\Hash::make('manager123'),
+                'password'=>\Illuminate\Support\Facades\Hash::make('bigmotherboss'),
                 'number'=>'+3805642352',
                 'address'=>'г.Краматорск,улица Дружбы 11-50',
                 'role_id'=>'3'

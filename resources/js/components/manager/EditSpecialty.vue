@@ -7,7 +7,7 @@
                     <label for="Name" class="col-sm-4 control-label">Специальность</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|max:20'"
+                            v-validate="'required'"
                             :class="{'input': true, 'alert-danger':errors.has('name')}"
                             type="text"
                             name="name"

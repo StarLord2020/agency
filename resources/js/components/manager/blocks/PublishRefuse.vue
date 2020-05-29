@@ -23,6 +23,7 @@
                     .then((response) => {
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Успешно опубликовано');
+                            this.RefreshTable(true);
                         }
                         else {
                             this.$toaster.error('Ошибка');
