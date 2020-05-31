@@ -17,8 +17,8 @@ class StatisticExport implements FromView
         return view('manager.exports.statistic', [
             'statistics' => (new Chart())->specialtiesForBid($todayDate),
             'statisticsResumes' => (new Chart())->specialtiesForResume($todayDate),
-            'realizationBids' => (new Chart())->getStatisticsForSpecialties()
-
+            'realizationBids' => (new Chart())->getStatisticsForSpecialties(),
+            'salary' => (new Chart())->getSalaryForSpecialties()
         ]);
     }
 }

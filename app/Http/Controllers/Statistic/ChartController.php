@@ -16,6 +16,7 @@ class ChartController extends Controller
         $todayDate = date("Y-m-d");
         $topSpecialtyBids=(new Chart())->topSpecialtiesBid($todayDate);
         $topSpecialtiesResumes=(new Chart())->topSpecialtiesResume($todayDate);
+
         return view('manager.statisctic',compact('topSpecialtyBids','topSpecialtiesResumes'));
     }
     public function getStatistic($id)

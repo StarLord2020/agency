@@ -62,6 +62,7 @@
                 </div>
             </div>
         </div>
+        <a href="/statistic/export"><img src="/images/export.png" alt="export" class="export"></a>
     </div>
 </template>
 
@@ -267,6 +268,16 @@
     border:1px solid #cecece;
     padding:25px;
     box-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+.export {
+    position: fixed;
+    right:15px;
+    top: 100px;
+    width: 50px;
+    height: 50px;
+}
+.export:hover {
+    opacity: 0.94;
 }
 .chart-container:hover
 {

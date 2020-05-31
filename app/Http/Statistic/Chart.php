@@ -119,6 +119,7 @@ class Chart
 
     public function getStatisticSalaryForSpecialty($id)
     {
+        $specialty = Specialty::where('id',$id)->first();
         $todayDate = date("Y-m-d");
         $start_date = clone(new Carbon($todayDate))->addDays(-30);
         $salaryAvg=DB::table('bids')
@@ -134,6 +135,23 @@ class Chart
             ->where('bids.status_id','2')
             ->orderBy('bids.salary', 'desc')->first();
 
-        return ((['salaryAvg'=>round($salaryAvg->salaryAvg??0, 0),'salaryMax'=>round($salaryMax->salary??0,0),'date'=>$start_date->format('Y-m-d').'/'.$todayDate]));
+        return (
+            [   'salaryAvg'=>round($salaryAvg->salaryAvg??0, 0),
+                'salaryMax'=>round($salaryMax->salary??0,0),
+                'date'=>$start_date->format('Y-m-d').'/'.$todayDate,
+                'specialty'=>$specialty->name
+          ]);
     }
+
+    public function getSalaryForSpecialties()
+    {
+        $specialties = Specialty::all();
+        $result = [];
+        foreach ($specialties as $specialty){
+            array_push($result,$this->getStatisticSalaryForSpecialty($specialty->id));
+        }
+
+        return $result;
+    }
+
 }
