@@ -24,8 +24,9 @@ export default {
         },
         deleteRecord(array,id)
         {
-            let index =array.findIndex(el => el.id === id)
-            array.splice(index,1)
+            let index =array.findIndex(el => el.id === id);
+            array.splice(index,1);
+            this.setPages();
         },
         paginate (posts) {
             let page = this.page;

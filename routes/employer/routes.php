@@ -3,7 +3,7 @@
 Route::prefix('employer')
     ->name('employer.')
     ->namespace('Employer')
-    ->middleware(['auth','role:1'])
+//    ->middleware(['auth','role:1'])
     ->group(function () {
         Route::resource('bid', 'BidController');
         Route::get('/search-for-resumes','ResumeController@index');
@@ -21,7 +21,7 @@ Route::prefix('employer')
 Route::prefix('employee')
     ->name('employee.')
     ->namespace('Employee')
-    ->middleware(['auth','role:2'])
+//    ->middleware(['auth','role:2'])
     ->group(function () {
         Route::resource('resume', 'ResumeController');
         Route::get('/employee-resume','ResumeController@showResume');

@@ -6,7 +6,7 @@
 </template>
 <script>
     export default {
-        props:['id','route','setPages'],
+        props:['id','route'],
         name: "PublishRefuse",
         data(){
             return{
@@ -24,7 +24,6 @@
                         if (response.data.response == 'updated') {
                             this.$toaster.success('Успешно опубликовано');
                             this.RefreshTable(true);
-                            this.setPages();
                         }
                         else {
                             this.$toaster.error('Ошибка');
@@ -36,7 +35,7 @@
             },
             SetStatusRefuse()
             {
-                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите отказать?', {
                     size: 'sm',
                     buttonSize: 'md',
                     okVariant: 'danger',

@@ -12,7 +12,7 @@
                 <span class="description d-block mb-2"><b class="mr-3">Навыки:</b>{{resume.skills|cutText(195)}}</span>
                 <span class="address d-block mb-2"><b class="mr-3">Стутус:</b>{{resume.name}}</span>
             </a>
-            <publish-refuse @delete="deleteRecord(resumeList,resume.id)" :id="resume.id" :route="route" :setPages="setPages"></publish-refuse>
+            <publish-refuse @delete="deleteRecord(resumeList,resume.id)" :id="resume.id" :route="route"></publish-refuse>
         </div>
         <div class="search pt-4 pb-4 border" v-if="!displayedPosts.length">
             <div>Нет резюме на публикацию...</div>

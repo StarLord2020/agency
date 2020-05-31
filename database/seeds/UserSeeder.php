@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
 
             ['FIO'=>'Зубань Анна Юрьевна',
                 'email'=>'anyazuban@gmail.com',
-                'birthday'=>'1999-05-20',
+                'birthday'=>'1998-10-30',
                 'password'=>\Illuminate\Support\Facades\Hash::make('bigmotherboss'),
                 'number'=>'+3805642352',
                 'address'=>'г.Краматорск,улица Дружбы 11-50',

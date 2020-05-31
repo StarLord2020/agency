@@ -119,7 +119,6 @@
                         resume.address.toLowerCase().indexOf(this.search.city.toLowerCase())>0:true)
                 );
 
-                console.log();
             },
             openSlide(){
                 window.scrollTo(0, 0)
