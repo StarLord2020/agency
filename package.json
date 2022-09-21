@@ -39,6 +39,6 @@
         "vue-select": "^3.9.5",
         "vue-virtual-table": "^0.2.14",
         "vuejs-paginate": "^2.1.0",
-        "vuetify": "^2.2.20"
+        "vuetify": "^2.6.10"
     }
 }
